@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+
 import { useForm } from '../../hooks/useForm';
 
 interface Props {
@@ -60,7 +60,7 @@ export const LoginForm = ({ userSubmition, registredOrNot }: Props) => {
                 />
             </div>
             <p className='mt-1 mb-3'>
-                Don't have an account? <button onClick={registredOrNot}>Register</button>
+                Don't have an account? <a className='text-warning' onClick={registredOrNot}> Register</a>
             </p>
             {error && <p className='text-danger'>{error}</p>}
             <button className='btn btn-primary'>Login</button>

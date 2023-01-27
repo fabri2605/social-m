@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+
 import { useForm } from '../../hooks/useForm';
 
 interface Props {
@@ -20,7 +20,7 @@ export const RegisterForm = ({ userSubmition, registredOrNot }: Props) => {
             action('error', 'Email is invalid!');
         } else if (user.length < 4) {
             action('error', 'Username cant be that short!');
-        } else if (pass.length < 5) {
+        } else if (pass.length < 7) {
             action('error', 'Password cant be that short!');
         } else {
             action('error', '');
@@ -76,7 +76,7 @@ export const RegisterForm = ({ userSubmition, registredOrNot }: Props) => {
                 />
             </div>
             <p className='mt-1 mb-3'>
-                Already have an account? <button onClick={registredOrNot}>Login</button>
+                Already have an account? <a className='text-warning' onClick={registredOrNot}>Login</a>
             </p>
             {error && <p className='text-danger'>{error}</p>}
             <button className='btn btn-primary'>Register</button>

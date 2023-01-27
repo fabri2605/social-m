@@ -1,11 +1,19 @@
 import { createContext, useEffect, useState } from 'react';
-import { collection, addDoc, getDocs, doc, getDoc } from 'firebase/firestore';
+import {
+    collection,
+    addDoc,
+    getDocs,
+    doc,
+    getDoc,
+    updateDoc,
+} from 'firebase/firestore';
 import { db } from '../firebase';
 
 export interface user {
     username: string;
     email: string;
     password: string;
+    age?: number;
 }
 
 interface usersInterface {
@@ -13,9 +21,12 @@ interface usersInterface {
     bringData: () => void;
     registerUser: (user: user) => void;
     loginUser: (user: user) => void;
-    findById: (id: string) => Promise< user  | undefined>;
+    logById: (id: string) => void;
     isLogged: user | null;
-    logoutUser: ()=>void;
+    logoutUser: () => void;
+    isLoading: boolean;
+    setIsLoading: (b: boolean) => void;
+    changePassword: (pass: string, id: string)=>void;
 }
 
 export const UserContext = createContext({} as usersInterface);
@@ -23,6 +34,7 @@ export const UserContext = createContext({} as usersInterface);
 export const UserCtxProvider = ({ children }: any) => {
     const [users, setUsers] = useState<user[]>([]);
     const [isLogged, setIsLogged] = useState<user | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const bringData = async () => {
         try {
@@ -37,26 +49,29 @@ export const UserCtxProvider = ({ children }: any) => {
         }
     };
 
-    const registerUser = async ({ email, username, password }: user) => {
+    const registerUser = async (user: user) => {
         try {
-            const user = { email, username, password };
             const docRef = await addDoc(collection(db, 'users'), user);
-            console.log(`Document written with ID: ${docRef.id}`);
             localStorage.setItem('lg', docRef.id);
+            bringData();
             setIsLogged(user);
         } catch (e) {
             console.error('Error adding document: ', e);
         }
     };
 
-    const loginUser = async (user : user) => {
+    const logoutUser = () => {
+        setIsLogged(null);
+        localStorage.removeItem('lg');
+    };
 
+    const loginUser = async (user: user) => {
         try {
             const querySnapshot = await getDocs(collection(db, 'users'));
             querySnapshot.forEach((doc) => {
-                if(doc.data().username === user.username){
+                if (doc.data().username === user.username) {
                     localStorage.setItem('lg', doc.id);
-                };
+                }
             });
         } catch (e) {
             console.error('Error adding document: ', e);
@@ -66,17 +81,25 @@ export const UserCtxProvider = ({ children }: any) => {
         window.location.href = '/';
     };
 
-    const logoutUser = () => {
-        setIsLogged(null);
-        localStorage.removeItem('lg');
+    const logById = async (id: string) => {
+        try {
+            const docRef = doc(db, 'users', id);
+            const docSnap: any = await getDoc(docRef);
+            setIsLogged(docSnap.data());
+        } catch (e) {
+            console.error('Error adding document: ', e);
+        }
     };
 
-    const findById = async (id : string) => {
+    const changePassword = async (password: string, id: string) => {
         try {
-            const docRef = doc(db, "users", id);
-            const docSnap : any = await getDoc(docRef);
-            const { email, username, password } = docSnap.data()
-            return { email, username, password }
+            setIsLoading(true);
+            await updateDoc(doc(db, 'users', id), {
+                ...isLogged,
+                password,
+            });
+            bringData();
+            setIsLoading(false);
         } catch (e) {
             console.error('Error adding document: ', e);
         }
@@ -88,7 +111,18 @@ export const UserCtxProvider = ({ children }: any) => {
 
     return (
         <UserContext.Provider
-            value={{ users, registerUser, bringData, isLogged, loginUser, findById, logoutUser }}
+            value={{
+                users,
+                registerUser,
+                bringData,
+                isLogged,
+                loginUser,
+                logById,
+                logoutUser,
+                isLoading,
+                setIsLoading,
+                changePassword
+            }}
         >
             {children}
         </UserContext.Provider>

@@ -11,6 +11,9 @@ import { Home } from './components/Home';
 import './firebase';
 import 'bootswatch/dist/superhero/bootstrap.min.css';
 import { Error } from './components/Error';
+import { useContext } from 'react';
+import { Profile } from './components/profile/Profile';
+import { PublicationsProvider } from './context/PublicationsContext';
 
 const router = createBrowserRouter([
     {
@@ -22,6 +25,11 @@ const router = createBrowserRouter([
     {
         path: '/login',
         element: <Login />,
+        errorElement: <Error />,
+    },
+    {
+        path: '/profile/:clientusername',
+        element: <Profile />,
         errorElement: <Error />,
     },
     {
@@ -37,7 +45,9 @@ const root = ReactDOM.createRoot(
 root.render(
     <React.StrictMode>
         <UserCtxProvider>
-            <RouterProvider router={router} />
+            <PublicationsProvider>
+                <RouterProvider router={router} />
+            </PublicationsProvider>
         </UserCtxProvider>
     </React.StrictMode>
 );
