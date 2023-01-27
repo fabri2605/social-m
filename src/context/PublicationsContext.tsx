@@ -4,7 +4,6 @@ import {
     addDoc,
     getDocs,
     doc,
-    getDoc,
     updateDoc,
 } from 'firebase/firestore';
 import { db } from '../firebase';
@@ -23,25 +22,29 @@ interface publicationsInterface {
     publish: (txt: string, id: string) => void;
     publications: publication[];
     bringPublications: () => void;
-    upvotingPub : (pub: publication, user: user, num: 1 | 2)=> void;
+    upvotingPub: (pub: publication, user: user, b: boolean) => void;
+    setIsPubLoading: React.Dispatch<React.SetStateAction<string>>;
+    isPubLoading: string;
 }
 
 export const PublicationsContext = createContext({} as publicationsInterface);
 
 export const PublicationsProvider = ({ children }: any) => {
     const [publications, setPublications] = useState<publication[]>([]);
+    const [isPubLoading, setIsPubLoading] = useState('Pe49nUPQDgAD7uWYOhDW');
 
     const publish = async (txt: string, username: string) => {
         try {
             const date = new Date();
-            /* reading: date.toDateString(); */
-            const docRef = await addDoc(collection(db, 'publications'), { id : 1});
+            const docRef = await addDoc(collection(db, 'publications'), {
+                id: 1,
+            });
             await updateDoc(doc(db, 'publications', docRef.id), {
                 txt,
                 username,
                 date,
                 upvotes: [],
-                id : docRef.id,
+                id: docRef.id,
             });
         } catch (e) {
             console.error('Error adding document: ', e);
@@ -61,14 +64,26 @@ export const PublicationsProvider = ({ children }: any) => {
         }
     };
 
-    const upvotingPub = async (pub: publication, user: user, num : 1 | 2) => {
-        try{
+    const upvotingPub = async (
+        pub: publication,
+        user: user,
+        up: boolean = true
+    ) => {
+        let upvotes = [...pub.upvotes];
+        if (up) {
+            upvotes.push(user);
+        } else {
+            upvotes = upvotes.filter((e) => e.username !== user.username);
+        }
+        try {
             await updateDoc(doc(db, 'publications', pub.id), {
-                ...pub, 
+                ...pub,
+                upvotes,
             });
-
-        } catch (e){
-
+            bringPublications();
+            setIsPubLoading('');
+        } catch (e) {
+            console.log(e);
         }
     };
 
@@ -78,7 +93,14 @@ export const PublicationsProvider = ({ children }: any) => {
 
     return (
         <PublicationsContext.Provider
-            value={{ publish, publications, bringPublications, upvotingPub }}
+            value={{
+                publish,
+                publications,
+                bringPublications,
+                upvotingPub,
+                setIsPubLoading,
+                isPubLoading,
+            }}
         >
             {children}
         </PublicationsContext.Provider>

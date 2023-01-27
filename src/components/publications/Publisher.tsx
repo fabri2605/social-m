@@ -24,7 +24,7 @@ export const Publisher = () => {
 
     return (
         <div className='form-group'>
-            <label htmlFor='exampleTextarea' className='form-label mt-4'>
+            <label htmlFor='exampleTextarea' className='form-label mt-2'>
                 Write some announcement!
             </label>
             <textarea

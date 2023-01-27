@@ -51,7 +51,7 @@ export const Home = () => {
     return (
         <div className='container'>
             <Nav />
-            <div className='alert alert-dismissible alert-warning'>
+            <div className='alert alert-dismissible alert-warning mb-1'>
                 <button
                     type='button'
                     className='btn-close'

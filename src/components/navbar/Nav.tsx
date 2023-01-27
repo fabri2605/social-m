@@ -66,7 +66,7 @@ export const Nav = () => {
                                     {isLogged?.username.toUpperCase()}
                                 </a>
                                 <a className='dropdown-item' href='#'>
-                                    Friends
+                                    Meet People
                                 </a>
                                 <div className='dropdown-divider'></div>
                                 <a

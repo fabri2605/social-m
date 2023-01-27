@@ -38,7 +38,7 @@ export const RegisterForm = ({ userSubmition, registredOrNot }: Props) => {
             <h3>Welcome, please register!</h3>
             <div className='form-group input-group mb-3 mt-3'>
                 <div className='input-group-text'>
-                    <i className='material-icons'>contacts</i>
+                    <i className='material-icons'>local_post_office</i>
                 </div>
                 <label className='col-sm-2 col-form-label'>Email</label>
                 <input
@@ -76,7 +76,7 @@ export const RegisterForm = ({ userSubmition, registredOrNot }: Props) => {
                 />
             </div>
             <p className='mt-1 mb-3'>
-                Already have an account? <a className='text-warning' onClick={registredOrNot}>Login</a>
+                Already have an account? <a style={{cursor: 'pointer'}} className='text-warning' onClick={registredOrNot}>Login</a>
             </p>
             {error && <p className='text-danger'>{error}</p>}
             <button className='btn btn-primary'>Register</button>
