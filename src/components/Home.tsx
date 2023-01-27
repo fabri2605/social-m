@@ -5,7 +5,7 @@ import Imagee from '../assets/nemo.jpg';
 import { UserContext } from '../context/UserContext';
 import { Nav } from './navbar/Nav';
 import { Publications } from './publications/Publications';
-import { Publisher } from './publish/Publisher';
+import { Publisher } from './publications/Publisher';
 
 import { Spinner } from './spinner/Spinner';
 

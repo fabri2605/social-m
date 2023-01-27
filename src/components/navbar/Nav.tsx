@@ -33,14 +33,16 @@ export const Nav = () => {
                 </button>
                 <div className='collapse navbar-collapse' id='navbarColor01'>
                     <ul className='navbar-nav me-auto'>
-                        <li className='nav-item dropdown'>
+                        <li>
                             <a
                                 className='nav-link'
                                 role='button'
-                                onClick={()=>navigate('/')}
+                                onClick={() => navigate('/')}
                             >
                                 Home
                             </a>
+                        </li>
+                        <li className='nav-item dropdown'>
                             <a
                                 className='nav-link dropdown-toggle'
                                 data-bs-toggle='dropdown'

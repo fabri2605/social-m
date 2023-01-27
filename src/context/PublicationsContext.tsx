@@ -46,6 +46,10 @@ export const PublicationsProvider = ({ children }: any) => {
         }
     };
 
+    useEffect(()=>{
+        bringPublications();
+    },[]);
+
     return (
         <PublicationsContext.Provider value={{ publish, publications, bringPublications }}>
             {children}
