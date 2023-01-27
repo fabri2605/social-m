@@ -59,7 +59,7 @@ export const Nav = () => {
                                     style={{ cursor: 'pointer' }}
                                     onClick={() =>
                                         navigate(
-                                            `/profile/${isLogged!.username}`
+                                            `/profile/${isLogged!.id}`
                                         )
                                     }
                                 >

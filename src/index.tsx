@@ -28,7 +28,7 @@ const router = createBrowserRouter([
         errorElement: <Error />,
     },
     {
-        path: '/profile/:clientusername',
+        path: '/profile/:profileof',
         element: <Profile />,
         errorElement: <Error />,
     },

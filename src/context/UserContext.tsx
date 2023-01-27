@@ -14,6 +14,8 @@ export interface user {
     email: string;
     password: string;
     age?: number;
+    id: string;
+    description?: string;
 }
 
 interface usersInterface {
@@ -26,7 +28,9 @@ interface usersInterface {
     logoutUser: () => void;
     isLoading: boolean;
     setIsLoading: (b: boolean) => void;
-    changePassword: (pass: string, id: string)=>void;
+    changePassword: (pass: string, id: string) => void;
+    changeDescription: (desc: string, id: string) => void;
+    findById: (id: string) => Promise<any>;
 }
 
 export const UserContext = createContext({} as usersInterface);
@@ -51,8 +55,12 @@ export const UserCtxProvider = ({ children }: any) => {
 
     const registerUser = async (user: user) => {
         try {
-            const docRef = await addDoc(collection(db, 'users'), user);
+            const docRef = await addDoc(collection(db, 'users'), { id: '1' });
             localStorage.setItem('lg', docRef.id);
+            await updateDoc(doc(db, 'users', docRef.id), {
+                ...user,
+                id: docRef.id,
+            });
             bringData();
             setIsLogged(user);
         } catch (e) {
@@ -91,6 +99,16 @@ export const UserCtxProvider = ({ children }: any) => {
         }
     };
 
+    const findById = async (id: string) => {
+        try {
+            const docRef = doc(db, 'users', id);
+            const docSnap: any = await getDoc(docRef);
+            return docSnap.data();
+        } catch (e) {
+            console.error('Error bringing info: ', e);
+        }
+    };
+
     const changePassword = async (password: string, id: string) => {
         try {
             setIsLoading(true);
@@ -101,7 +119,22 @@ export const UserCtxProvider = ({ children }: any) => {
             bringData();
             setIsLoading(false);
         } catch (e) {
-            console.error('Error adding document: ', e);
+            console.error('Error editting document: ', e);
+        }
+    };
+
+    const changeDescription = async (description: string, id: string) => {
+        try {
+            setIsLoading(true);
+            await updateDoc(doc(db, 'users', id), {
+                ...isLogged,
+                description,
+            });
+            setIsLogged(await findById(id));
+            bringData();
+            setIsLoading(false);
+        } catch (e) {
+            console.error('Error editting document: ', e);
         }
     };
 
@@ -121,7 +154,9 @@ export const UserCtxProvider = ({ children }: any) => {
                 logoutUser,
                 isLoading,
                 setIsLoading,
-                changePassword
+                changePassword,
+                findById,
+                changeDescription,
             }}
         >
             {children}

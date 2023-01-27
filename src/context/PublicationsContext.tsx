@@ -5,6 +5,7 @@ import {
     getDocs,
     doc,
     updateDoc,
+    deleteDoc,
 } from 'firebase/firestore';
 import { db } from '../firebase';
 import { user } from './UserContext';
@@ -23,6 +24,7 @@ interface publicationsInterface {
     publications: publication[];
     bringPublications: () => void;
     upvotingPub: (pub: publication, user: user, b: boolean) => void;
+    deletingPub: (pub: publication) => void;
     setIsPubLoading: React.Dispatch<React.SetStateAction<string>>;
     isPubLoading: string;
 }
@@ -31,7 +33,7 @@ export const PublicationsContext = createContext({} as publicationsInterface);
 
 export const PublicationsProvider = ({ children }: any) => {
     const [publications, setPublications] = useState<publication[]>([]);
-    const [isPubLoading, setIsPubLoading] = useState('Pe49nUPQDgAD7uWYOhDW');
+    const [isPubLoading, setIsPubLoading] = useState('');
 
     const publish = async (txt: string, username: string) => {
         try {
@@ -46,6 +48,7 @@ export const PublicationsProvider = ({ children }: any) => {
                 upvotes: [],
                 id: docRef.id,
             });
+            bringPublications();
         } catch (e) {
             console.error('Error adding document: ', e);
         }
@@ -58,6 +61,11 @@ export const PublicationsProvider = ({ children }: any) => {
             querySnapshot.forEach((doc) => {
                 usefuls.push(doc.data());
             });
+            usefuls = usefuls.sort(
+                (a: publication, b: publication) =>
+                    Number(b.date.toLocaleString().substring(18, 28)) -
+                    Number(a.date.toLocaleString().substring(18, 28))
+            );
             setPublications(usefuls);
         } catch (e) {
             console.error('Error bringing info: ', e);
@@ -87,6 +95,16 @@ export const PublicationsProvider = ({ children }: any) => {
         }
     };
 
+    const deletingPub = async (pub: publication) => {
+        try {
+            await deleteDoc(doc(db, 'publications', pub.id));
+            bringPublications();
+            setIsPubLoading('');
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
     useEffect(() => {
         bringPublications();
     }, []);
@@ -100,6 +118,7 @@ export const PublicationsProvider = ({ children }: any) => {
                 upvotingPub,
                 setIsPubLoading,
                 isPubLoading,
+                deletingPub,
             }}
         >
             {children}

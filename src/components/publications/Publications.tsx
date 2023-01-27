@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import {
     PublicationsContext,
     publication,
@@ -6,7 +6,7 @@ import {
 import { UserContext } from '../../context/UserContext';
 import { SinglePub } from './SinglePub';
 export const Publications = () => {
-    const { publications, upvotingPub } = useContext(PublicationsContext);
+    const { publications, upvotingPub, deletingPub } = useContext(PublicationsContext);
     const { isLogged } = useContext(UserContext);
 
     const upvoteRequest = (pub: publication) => {
@@ -23,12 +23,18 @@ export const Publications = () => {
     return (
         <>
             <h2 className='mt-3 mb-3'>Publications</h2>
-            <div className='list-group'>
+            <div
+                className={`list-group`}
+
+            >
                 {publications && publications.length > 0 ? (
                     publications.map((e) => {
-                        
                         return (
-                            <SinglePub key={e.date + e.username} e={e} upvoteRequest={(p)=>upvoteRequest(p)}  />
+                            <SinglePub
+                                key={e.date + e.username}
+                                e={e}
+                                upvoteRequest={(p) => upvoteRequest(p)}
+                            />
                         );
                     })
                 ) : (

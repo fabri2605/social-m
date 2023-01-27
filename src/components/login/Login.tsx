@@ -45,7 +45,7 @@ export function Login() {
             } else {
                 setIsLoading(true);
                 setError('');
-                registerUser({ email, username, password });
+                registerUser({ email, username, password, id:'1' });
                 navigate('/');
             }
         } catch (e) {

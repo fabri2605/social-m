@@ -5,20 +5,22 @@ export const Publisher = () => {
     const [pub, setPub] = useState('');
     const [error, setError] = useState('');
     const { publish, bringPublications } = useContext(PublicationsContext);
-    const { isLogged } = useContext(UserContext)
+    const { isLogged } = useContext(UserContext);
 
-    const changePubHandler = (e : React.ChangeEvent<HTMLTextAreaElement>) => {
+    const changePubHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setPub(e.target.value);
     };
 
     const submitHandler = () => {
-        if(pub.length < 10){
+        if (pub.length < 10) {
             setError('Your publication must be longer!');
-        }else{
+        } else if (pub.length > 60) {
+            setError('Your publication must be shorter!');
+        } else {
             setError('');
             publish(pub, isLogged?.username!);
             bringPublications();
-            setPub('')
+            setPub('');
         }
     };
 
@@ -33,10 +35,12 @@ export const Publisher = () => {
                 id='exampleTextarea'
                 rows={2}
                 value={pub}
-                onChange={(e)=>changePubHandler(e)}
+                onChange={(e) => changePubHandler(e)}
             ></textarea>
             {error && <p className='text-danger m-0'>{error}</p>}
-            <button onClick={submitHandler} className='btn btn-primary mt-3'>Publish</button>
+            <button onClick={submitHandler} className='btn btn-primary mt-3'>
+                Publish
+            </button>
         </div>
     );
 };
