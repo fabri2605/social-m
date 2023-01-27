@@ -11,7 +11,8 @@ import { db } from '../firebase';
 
 export interface publication {
     txt: string;
-    id: string;
+    username: string;
+    title?: string;
 }
 
 interface publicationsInterface {
@@ -25,9 +26,9 @@ export const PublicationsContext = createContext({} as publicationsInterface);
 export const PublicationsProvider = ({ children }: any) => {
     const [publications, setPublications] = useState<publication[]>([]);
 
-    const publish = async (txt: string, id: string) => {
+    const publish = async (txt: string, username: string) => {
         try {
-            await addDoc(collection(db, 'publications'), { txt, id });
+            await addDoc(collection(db, 'publications'), { txt, username });
         } catch (e) {
             console.error('Error adding document: ', e);
         }

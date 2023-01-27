@@ -1,10 +1,11 @@
 import { useState, useContext } from 'react';
 import { PublicationsContext } from '../../context/PublicationsContext';
+import { UserContext } from '../../context/UserContext';
 export const Publisher = () => {
     const [pub, setPub] = useState('');
     const [error, setError] = useState('');
     const { publish, bringPublications } = useContext(PublicationsContext);
-    const userId = localStorage.getItem('lg');
+    const { isLogged } = useContext(UserContext)
 
     const changePubHandler = (e : React.ChangeEvent<HTMLTextAreaElement>) => {
         setPub(e.target.value);
@@ -15,7 +16,7 @@ export const Publisher = () => {
             setError('Your publication must be longer!');
         }else{
             setError('');
-            publish(pub, userId!);
+            publish(pub, isLogged?.username!);
             bringPublications();
             setPub('')
         }

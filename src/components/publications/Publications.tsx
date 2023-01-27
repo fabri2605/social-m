@@ -7,10 +7,19 @@ export const Publications = () => {
         <>
             <h2 className='mt-3 mb-3'>Publications</h2>
             {publications.length > 0 ? (
-                publications.forEach((e) => {
+                publications.map((e) => {
                     return (
-                        <div className='alert alert-dismissible alert-light'>
-                            <p>{e.txt}</p>
+                        <div
+                        className='card border-primary mb-3'
+                            style={{maxWidth: '20rem'}}
+                        >
+                            <div className='card-header'>{e.username}</div>
+                            <div className='card-body'>
+                                {e.title && <h4 className='card-title'>{e.title}</h4>}
+                                <p className='card-text'>
+                                    {e.txt}
+                                </p>
+                            </div>
                         </div>
                     );
                 })
