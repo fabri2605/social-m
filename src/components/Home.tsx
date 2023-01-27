@@ -59,13 +59,13 @@ export const Home = () => {
                 ></button>
                 <h4 className='alert-heading'>Warning!</h4>
                 <p className='mb-0'>
-                    This website is not completely developed, you can have fun
-                    going into the finished ones... for that .
+                    This website is not completely developed. If you want to, you can dive 
+                    into my finished projects ..
                     <a
                         href='https://my-briefcase-three.vercel.app/'
                         className='alert-link'
                     >
-                        Click here!
+                        Clicking here!
                     </a>
                     .
                 </p>
