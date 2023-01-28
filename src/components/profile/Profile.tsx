@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { UserContext, user } from '../../context/UserContext';
 
 import { Nav } from '../navbar/Nav';
+import { Publications } from '../publications/Publications';
 import { MiniSpinner } from '../spinner/MiniSpinner';
 import { Spinner } from '../spinner/Spinner';
 
@@ -64,6 +65,8 @@ export const Profile = () => {
         console.log(e.target.value);
     };
 
+    const isProp = user?.username === isLogged?.username;
+
     useEffect(() => {
         bringProfile();
     }, [isLogged]);
@@ -73,9 +76,12 @@ export const Profile = () => {
             <Nav />
             {user ? (
                 <>
+                    <h3 className='opacity-50'>
+                        {isProp && 'Welcome to your profile!'}
+                    </h3>
                     <div
                         style={{ borderRadius: '5px' }}
-                        className='card border-warning mb-3 mt-5'
+                        className='card border-warning mb-3 mt-3'
                     >
                         <div className='card-header txt mt-1 opacity-50'>
                             {user.email}
@@ -96,12 +102,13 @@ export const Profile = () => {
                             <h4 className='card-title'>{user.username}</h4>
                             <p className='card-text'>
                                 {newDesc
-                                    ? newDesc
-                                    : 'Write something about yourself!'}
+                                    ? newDesc :
+                                    isProp ? 'Write something about yourself!'
+                                    : `${user.username} doesnt have a description yet..`}
                             </p>
                         </div>
                     </div>
-                    {user.username === isLogged?.username && (
+                    {isProp && (
                         <>
                             {!changingPass && (
                                 <button
@@ -148,7 +155,7 @@ export const Profile = () => {
             )}
             {changingPass && (
                 <>
-                    <div className='form-group has-danger'>
+                    <div className='form-group has-danger mb-3'>
                         <label className='form-label mt-4' htmlFor='inputValid'>
                             Enter your new password
                         </label>
@@ -164,7 +171,7 @@ export const Profile = () => {
                         <div className='valid-feedback'>That looks nice!</div>
                         <button
                             disabled={newPass.length < 7 ? true : false}
-                            className='btn btn-warning mt-2 text-dark'
+                            className='btn btn-warning mt-2 text-white'
                             onClick={passwordSubmit}
                         >
                             Done
@@ -174,7 +181,7 @@ export const Profile = () => {
             )}
             {changingDesc && (
                 <>
-                    <div className='form-group has-danger'>
+                    <div className='form-group has-danger mb-3'>
                         <label className='form-label mt-4' htmlFor='inputValid'>
                             Enter your new description
                         </label>
@@ -191,7 +198,7 @@ export const Profile = () => {
                         <div className='valid-feedback'>That looks nice!</div>
                         <button
                             disabled={newDesc.length < 5 ? true : false}
-                            className='btn btn-primary mt-2 text-dark'
+                            className='btn btn-primary mt-2 text-white'
                             onClick={descriptionSubmit}
                         >
                             Done
@@ -199,6 +206,7 @@ export const Profile = () => {
                     </div>
                 </>
             )}
+            <Publications filterByUser={user?.username ? user.username : ''} />
         </div>
     );
 };

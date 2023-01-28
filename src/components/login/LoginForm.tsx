@@ -33,11 +33,10 @@ export const LoginForm = ({ userSubmition, registredOrNot }: Props) => {
             className='card card-body'
             onSubmit={(e) => submitHandler(e)}
         >
-            <h1>Social-M</h1>
-            <h3>Welcome, please log in!</h3>
+            <h1>Social.v2</h1>
             {/* <img src={logo} /> */}
             <div className='form-group input-group mb-3 mt-3'>
-                <div className='input-group-text'>
+                <div style={{backgroundColor: 'none'}} className='input-group-text'>
                     <i className='material-icons'>contacts</i>
                 </div>
                 <label className='col-sm-2 col-form-label'>Username</label>

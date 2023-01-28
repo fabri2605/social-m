@@ -2,9 +2,10 @@ import {
     publication,
     PublicationsContext,
 } from '../../context/PublicationsContext';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { UserContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 interface Props {
     e: publication;
     upvoteRequest: (e: publication) => void;
@@ -13,8 +14,13 @@ interface Props {
 export const SinglePub = ({ e, upvoteRequest }: Props) => {
     const { isLogged, users } = useContext(UserContext);
     const { setIsPubLoading, isPubLoading, deletingPub } = useContext(PublicationsContext);
+    
     const navigate = useNavigate();
+
     let found = e.upvotes.find((e) => e.username === isLogged?.username);
+
+    const [showingUpvotes, setShowingUpvotes] = useState(false);
+
     const auxSecs = Number(e.date.toLocaleString().substring(18, 28));
     const auxDate = new Date(auxSecs * 1000);
     const relDate = auxDate.toDateString();
@@ -25,13 +31,33 @@ export const SinglePub = ({ e, upvoteRequest }: Props) => {
     };
 
     const removeReqHandler = () => {
-        setIsPubLoading(e.id);
-        deletingPub(e);
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              ).then(()=>deletingPub(e));
+            }
+          })
+        
     };
 
     const goToProfile = () => {
         const propietary = users.find((u) => u.username === e.username);
         navigate(`/profile/${propietary?.id}`);
+    };
+
+    const goToUpvotes = () => {
+        setShowingUpvotes(true);
     };
 
     return (
@@ -40,7 +66,7 @@ export const SinglePub = ({ e, upvoteRequest }: Props) => {
             style={{ borderRadius: '10px' }}
             key={e.date.toString() + e.username}
         >
-            <div className='card-header d-flex justify-content-between'>
+            <div className='card-header d-flex justify-content-between pb-1'>
                 <h6
                     style={{ cursor: 'pointer' }}
                     className='txt mt-1'
@@ -75,14 +101,15 @@ export const SinglePub = ({ e, upvoteRequest }: Props) => {
                     <i
                         onClick={upvoteReqHandler}
                         className={`material-icons ${found && 'text-success'}`}
-                        style={{ cursor: 'pointer', marginTop: '2px' }}
+                        style={{ cursor: 'pointer', marginTop: '1px' }}
                     >
                         arrow_upward
                     </i>
                     &nbsp;
-                    <h6 className='txt mt-1 opacity-50'>{e.upvotes.length}</h6>
+                    <h6 style={{ cursor: 'pointer' }} onClick={goToUpvotes} className='txt mt-1 opacity-50'>{e.upvotes.length}</h6>
                 </div>
             </div>
+            {}
             <div className='card-body'>
                 {e.title && <h4 className='card-title'>{e.title}</h4>}
                 <p className='card-text'>{e.txt}</p>

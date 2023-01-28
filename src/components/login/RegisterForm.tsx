@@ -34,8 +34,7 @@ export const RegisterForm = ({ userSubmition, registredOrNot }: Props) => {
             className='card card-body rounded'
             onSubmit={(e) => submitHandler(e)}
         >
-            <h1>Social-M</h1>
-            <h3>Welcome, please register!</h3>
+            <h1>Social.v2</h1>
             <div className='form-group input-group mb-3 mt-3'>
                 <div className='input-group-text'>
                     <i className='material-icons'>local_post_office</i>

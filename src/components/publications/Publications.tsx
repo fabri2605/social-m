@@ -4,11 +4,13 @@ import {
     publication,
 } from '../../context/PublicationsContext';
 import { UserContext } from '../../context/UserContext';
+import { MiniSpinner } from '../spinner/MiniSpinner';
 import { SinglePub } from './SinglePub';
-export const Publications = () => {
-    const { publications, upvotingPub, deletingPub } = useContext(PublicationsContext);
-    const { isLogged } = useContext(UserContext);
 
+export const Publications = ({ filterByUser }: { filterByUser: string }) => {
+    const { publications, upvotingPub } =
+        useContext(PublicationsContext);
+    const { isLogged } = useContext(UserContext);
     const upvoteRequest = (pub: publication) => {
         let work = true;
         pub.upvotes.forEach((user) => {
@@ -22,25 +24,40 @@ export const Publications = () => {
 
     return (
         <>
-            <h2 className='mt-3 mb-3'>Publications</h2>
-            <div
-                className={`list-group`}
-
-            >
+            {filterByUser && publications.filter((e) => e.username === filterByUser).length ===
+                0 ? (
+                <p style={{ textAlign: 'center', marginTop: '10px' }}>
+                    Hasnt published anything yet..
+                </p> ): <p style={{marginTop: '10px' }}>History</p>
+            }
+            {!filterByUser && <h2 className='mt-3 mb-3'>Feed</h2>}
+            <div className={`list-group`}>
                 {publications && publications.length > 0 ? (
                     publications.map((e) => {
-                        return (
-                            <SinglePub
-                                key={e.date + e.username}
-                                e={e}
-                                upvoteRequest={(p) => upvoteRequest(p)}
-                            />
-                        );
+                        if (filterByUser) {
+                            return (
+                                e.username === filterByUser && (
+                                    <SinglePub
+                                        key={e.date + e.username}
+                                        e={e}
+                                        upvoteRequest={(p) => upvoteRequest(p)}
+                                    />
+                                )
+                            );
+                        } else {
+                            return (
+                                <SinglePub
+                                    key={e.date + e.username}
+                                    e={e}
+                                    upvoteRequest={(p) => upvoteRequest(p)}
+                                />
+                            );
+                        }
                     })
                 ) : (
-                    <p className='txt txt-danger'>
-                        There are no publications in the database!
-                    </p>
+                    <div className='align-self-center'>
+                        <MiniSpinner />
+                    </div>
                 )}
             </div>
         </>

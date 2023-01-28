@@ -9,11 +9,14 @@ import { Login } from './components/login/Login';
 import { Home } from './components/Home';
 
 import './firebase';
-import 'bootswatch/dist/superhero/bootstrap.min.css';
+
+import 'bootswatch/dist/cyborg/bootstrap.min.css';
+
 import { Error } from './components/Error';
-import { useContext } from 'react';
 import { Profile } from './components/profile/Profile';
 import { PublicationsProvider } from './context/PublicationsContext';
+import { People } from './components/people/People';
+import { Upvotes } from './components/upvotes/Upvotes';
 
 const router = createBrowserRouter([
     {
@@ -30,6 +33,16 @@ const router = createBrowserRouter([
     {
         path: '/profile/:profileof',
         element: <Profile />,
+        errorElement: <Error />,
+    },
+    {
+        path: '/people',
+        element: <People />,
+        errorElement: <Error />,
+    },
+    {
+        path: '/upvotes/:pubId',
+        element: <Upvotes />,
         errorElement: <Error />,
     },
     {

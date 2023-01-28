@@ -11,14 +11,14 @@ export const Nav = () => {
     };
 
     return (
-        <nav className='navbar navbar-expand-lg navbar-dark bg-primary'>
+        <nav className='navbar navbar-expand-lg navbar-dark bg-primary rounded mb-2'>
             <div className='container-fluid'>
                 <a
                     className='navbar-brand'
                     style={{ cursor: 'pointer' }}
                     onClick={() => navigate('/')}
                 >
-                    Social-m
+                    Social.v2
                 </a>
                 <button
                     className='navbar-toggler'
@@ -58,14 +58,16 @@ export const Nav = () => {
                                     className='dropdown-item text-warning'
                                     style={{ cursor: 'pointer' }}
                                     onClick={() =>
-                                        navigate(
-                                            `/profile/${isLogged!.id}`
-                                        )
+                                        navigate(`/profile/${isLogged!.id}`)
                                     }
                                 >
                                     {isLogged?.username.toUpperCase()}
                                 </a>
-                                <a className='dropdown-item' href='#'>
+                                <a
+                                    className='dropdown-item'
+                                    style={{ cursor: 'pointer' }}
+                                    onClick={() => navigate(`/people`)}
+                                >
                                     Meet People
                                 </a>
                                 <div className='dropdown-divider'></div>

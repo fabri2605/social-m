@@ -49,7 +49,7 @@ export const Home = () => {
     return (
         <div className='container'>
             <Nav />
-            <div className='alert alert-dismissible alert-warning mb-1'>
+            <div className='alert alert-dismissible alert-warning mb-2'>
                 <button
                     type='button'
                     className='btn-close'
@@ -70,7 +70,8 @@ export const Home = () => {
             </div>
 
             <Publisher />
-            <Publications />
+            <Publications filterByUser={''} />
+            <p style={{textAlign: 'center', paddingBottom: '10px'}}>Page done by Fabricio Di Paolo</p>
         </div>
     );
 };

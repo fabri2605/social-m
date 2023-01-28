@@ -5,9 +5,10 @@ import { UserContext } from '../../context/UserContext';
 import { Spinner } from '../spinner/Spinner';
 import { LoginForm } from './LoginForm';
 import { RegisterForm } from './RegisterForm';
+import Swal from 'sweetalert2';
 
 export function Login() {
-    const [isRegistred, setIsRegistred] = useState(false);
+    const [isRegistred, setIsRegistred] = useState(true);
     const [error, setError] = useState('');
     const { users, registerUser, loginUser, isLoading, setIsLoading } = useContext(UserContext);
     const navigate = useNavigate();
@@ -23,6 +24,11 @@ export function Login() {
                 } else {
                     setIsLoading(true);
                     loginUser(user);
+                    Swal.fire(
+                        'Good job!',
+                        'You log in correctly!',
+                        'success'
+                    ).then(()=>navigate('/'));
                 }
             }
         } catch (e) {
@@ -44,9 +50,14 @@ export function Login() {
                 setError('That username is already in use!');
             } else {
                 setIsLoading(true);
+                setIsRegistred(true);
                 setError('');
                 registerUser({ email, username, password, id:'1' });
-                navigate('/');
+                Swal.fire(
+                    'Good job!',
+                    'You have registered correctly!',
+                    'success'
+                ).then(()=>navigate('/'));
             }
         } catch (e) {
             setError(`Error: ${e}`);
@@ -78,6 +89,7 @@ export function Login() {
                     />
                 )}
                 {error && <p className='text-danger'>{error}</p>}
+                <p style={{textAlign: 'center', paddingBottom: '10px'}}>Page done by Fabricio Di Paolo</p>
             </div>
         </div>
     );
