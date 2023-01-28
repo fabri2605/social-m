@@ -6,6 +6,7 @@ import { useContext, useState } from 'react';
 import { UserContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { Upvotes } from '../upvotes/Upvotes';
 interface Props {
     e: publication;
     upvoteRequest: (e: publication) => void;
@@ -13,8 +14,9 @@ interface Props {
 
 export const SinglePub = ({ e, upvoteRequest }: Props) => {
     const { isLogged, users } = useContext(UserContext);
-    const { setIsPubLoading, isPubLoading, deletingPub } = useContext(PublicationsContext);
-    
+    const { setIsPubLoading, isPubLoading, deletingPub } =
+        useContext(PublicationsContext);
+
     const navigate = useNavigate();
 
     let found = e.upvotes.find((e) => e.username === isLogged?.username);
@@ -38,17 +40,16 @@ export const SinglePub = ({ e, upvoteRequest }: Props) => {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-          }).then((result) => {
+            confirmButtonText: 'Yes, delete it!',
+        }).then((result) => {
             if (result.isConfirmed) {
-              Swal.fire(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success'
-              ).then(()=>deletingPub(e));
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                ).then(() => deletingPub(e));
             }
-          })
-        
+        });
     };
 
     const goToProfile = () => {
@@ -74,7 +75,9 @@ export const SinglePub = ({ e, upvoteRequest }: Props) => {
                 >
                     {e.username}
                 </h6>
-                <h6 className='txt mt-1 opacity-50' style={{ cursor: 'none' }}>{relDate}</h6>
+                <h6 className='txt mt-1 opacity-50' style={{ cursor: 'none' }}>
+                    {relDate}
+                </h6>
                 {isPubLoading === e.id && (
                     <div
                         className='spinner-grow text-primary position-absolute'
@@ -106,10 +109,18 @@ export const SinglePub = ({ e, upvoteRequest }: Props) => {
                         arrow_upward
                     </i>
                     &nbsp;
-                    <h6 style={{ cursor: 'pointer' }} onClick={goToUpvotes} className='txt mt-1 opacity-50'>{e.upvotes.length}</h6>
+                    <button
+                        type='button'
+                        className='txt opacity-50'
+                        data-bs-toggle='modal'
+                        data-bs-target={`#${e.id}`}
+                        style={{border: 'none', backgroundColor:'rgba(255, 255, 255, 0)'}}
+                    >
+                        {e.upvotes.length}
+                    </button>
                 </div>
             </div>
-            {}
+            <Upvotes pubId={e.id} />
             <div className='card-body'>
                 {e.title && <h4 className='card-title'>{e.title}</h4>}
                 <p className='card-text'>{e.txt}</p>

@@ -16,7 +16,6 @@ import { Error } from './components/Error';
 import { Profile } from './components/profile/Profile';
 import { PublicationsProvider } from './context/PublicationsContext';
 import { People } from './components/people/People';
-import { Upvotes } from './components/upvotes/Upvotes';
 
 const router = createBrowserRouter([
     {
@@ -38,11 +37,6 @@ const router = createBrowserRouter([
     {
         path: '/people',
         element: <People />,
-        errorElement: <Error />,
-    },
-    {
-        path: '/upvotes/:pubId',
-        element: <Upvotes />,
         errorElement: <Error />,
     },
     {

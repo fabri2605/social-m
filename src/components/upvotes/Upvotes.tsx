@@ -1,49 +1,65 @@
-import { useParams } from 'react-router-dom';
-import { Nav } from '../navbar/Nav';
 import { useContext } from 'react';
 import { PublicationsContext } from '../../context/PublicationsContext';
 
-export const Upvotes = () => {
+export const Upvotes = ({ pubId }: { pubId: string }) => {
     const { publications } = useContext(PublicationsContext);
-    const { pubId } = useParams();
 
-    const upvotes = publications.find((p)=>p.id===pubId)?.upvotes;
-    console.log(upvotes);
+    const pub = publications.find((p) => p.id === pubId);
+    console.log(pub?.upvotes);
     return (
         <div
             className='modal fade'
-            id='exampleModalCenter'
+            id={`${pub?.id}`}
             tabIndex={-1}
-            role='dialog'
-            aria-labelledby='exampleModalCenterTitle'
+            aria-labelledby='exampleModalLabel'
             aria-hidden='true'
         >
-            <div className='modal-dialog modal-dialog-centered' role='document'>
+            <div className='modal-dialog'>
                 <div className='modal-content'>
                     <div className='modal-header'>
-                        <h5 className='modal-title' id='exampleModalLongTitle'>
-                            Modal title
-                        </h5>
+                        <h1 className='modal-title fs-5' id='exampleModalLabel'>
+                            Upvotes
+                        </h1>
                         <button
                             type='button'
-                            className='close'
-                            data-dismiss='modal'
+                            className='btn-close'
+                            data-bs-dismiss='modal'
                             aria-label='Close'
-                        >
-                            <span aria-hidden='true'>&times;</span>
-                        </button>
+                        ></button>
                     </div>
-                    <div className='modal-body'>...</div>
+                    <div className='modal-body'>
+                        {pub && (
+                            <table style={{overflow:'hidden', borderRadius:'10px'}} className='table table-hover'>
+                                <thead>
+                                    <tr>
+                                        <th scope='col'>State</th>
+                                        <th scope='col'>User</th>
+                                        <th scope='col'>Id</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {pub.upvotes.map((u) => {
+                                        return (
+                                            <>
+                                                <tr className='table-active'>
+                                                    <th scope='row'>Active</th>
+                                                    <td>{u.username}</td>
+                                                    <td>{u.id.substring(0,5)}</td>
+                                                </tr>
+                                            </>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        )}
+                    </div>
                     <div className='modal-footer'>
                         <button
                             type='button'
-                            className='btn btn-secondary'
-                            data-dismiss='modal'
+                            className='btn btn-primary'
+                            data-bs-dismiss='modal'
                         >
                             Close
-                        </button>
-                        <button type='button' className='btn btn-primary'>
-                            Save changes
                         </button>
                     </div>
                 </div>
