@@ -48,7 +48,7 @@ export const SinglePub = ({ e, upvoteRequest }: Props) => {
                 >
                     {e.username}
                 </h6>
-                <h6 className='txt mt-1 opacity-50'>{relDate}</h6>
+                <h6 className='txt mt-1 opacity-50' style={{ cursor: 'none' }}>{relDate}</h6>
                 {isPubLoading === e.id && (
                     <div
                         className='spinner-grow text-primary position-absolute'

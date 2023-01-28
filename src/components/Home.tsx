@@ -1,7 +1,6 @@
-import { useEffect, useContext, useState } from 'react';
+import { useEffect, useContext, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Imagee from '../assets/nemo.jpg';
 import { UserContext } from '../context/UserContext';
 import { Nav } from './navbar/Nav';
 import { Publications } from './publications/Publications';
@@ -14,24 +13,27 @@ export const Home = () => {
         useContext(UserContext);
     const navigate = useNavigate();
 
-    const logDissaprobed = () => {
+    const logDissaprobed = useCallback(() => {
         navigate('/login');
-    };
+    }, [navigate]);
 
-    const logging = async (id: string) => {
-        try {
-            if (isLogged) {
+    const logging = useCallback(
+        async (id: string) => {
+            try {
+                if (isLogged) {
+                    setIsLoading(false);
+                    return;
+                }
+                logById(id);
                 setIsLoading(false);
-                return;
+            } catch (e) {
+                console.log(e);
+                setIsLoading(false);
+                logDissaprobed();
             }
-            logById(id);
-            setIsLoading(false);
-        } catch (e) {
-            console.log(e);
-            setIsLoading(false);
-            logDissaprobed();
-        }
-    };
+        },
+        [isLogged, logById, logDissaprobed, setIsLoading]
+    );
 
     useEffect(() => {
         const storage = localStorage.getItem('lg');
@@ -40,13 +42,9 @@ export const Home = () => {
         } else {
             logging(storage);
         }
-    }, []);
+    }, [logDissaprobed, logging]);
 
     if (isLoading) return <Spinner />;
-
-    {
-        /* update build assistant_photo person_add*/
-    }
 
     return (
         <div className='container'>
@@ -59,8 +57,8 @@ export const Home = () => {
                 ></button>
                 <h4 className='alert-heading'>Warning!</h4>
                 <p className='mb-0'>
-                    This website is not completely developed. If you want to, you can dive 
-                    into my finished projects ..
+                    This website is not completely developed. If you want to,
+                    you can dive into my finished projects ..
                     <a
                         href='https://my-briefcase-three.vercel.app/'
                         className='alert-link'

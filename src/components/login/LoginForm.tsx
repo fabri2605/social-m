@@ -1,5 +1,6 @@
 
 import { useForm } from '../../hooks/useForm';
+import logo from '../../assets/Social.jpg';
 
 interface Props {
     userSubmition: (u: string, p: string) => void;
@@ -28,16 +29,19 @@ export const LoginForm = ({ userSubmition, registredOrNot }: Props) => {
     return (
         <form
             autoComplete='off'
-            className='card card-body rounded'
+            style={{borderRadius: '5px'}}
+            className='card card-body'
             onSubmit={(e) => submitHandler(e)}
         >
             <h1>Social-M</h1>
             <h3>Welcome, please log in!</h3>
+            {/* <img src={logo} /> */}
             <div className='form-group input-group mb-3 mt-3'>
                 <div className='input-group-text'>
                     <i className='material-icons'>contacts</i>
                 </div>
                 <label className='col-sm-2 col-form-label'>Username</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;
                 <input
                     className='form-control'
                     type={'text'}
@@ -51,6 +55,7 @@ export const LoginForm = ({ userSubmition, registredOrNot }: Props) => {
                     <i className='material-icons'>extension</i>
                 </div>
                 <label className='col-sm-2 col-form-label mr-2'>Password</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;
                 <input
                     className='form-control'
                     type={'password'}

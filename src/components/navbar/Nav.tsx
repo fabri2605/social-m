@@ -72,6 +72,7 @@ export const Nav = () => {
                                 <a
                                     className='dropdown-item text-danger'
                                     onClick={logoutHandler}
+                                    style={{ cursor: 'pointer' }}
                                 >
                                     Log out
                                 </a>

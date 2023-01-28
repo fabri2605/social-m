@@ -1,4 +1,4 @@
-import styles from './Spinner.module.css';
+
 
 export const Error = () => {
     return (

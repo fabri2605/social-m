@@ -60,8 +60,8 @@ export const Profile = () => {
         }
     };
 
-    const photoSubmit = (e : React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.value)
+    const photoSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(e.target.value);
     };
 
     useEffect(() => {
@@ -120,7 +120,7 @@ export const Profile = () => {
                                     Edit description
                                 </button>
                             )}
-                            &nbsp;
+                            {/* &nbsp;
                             <div className='form-group m-1'>
                                 <label
                                     htmlFor='formFile'
@@ -139,7 +139,7 @@ export const Profile = () => {
                                 >
                                     Upload
                                 </button>
-                            </div>
+                                </div>*/}
                         </>
                     )}
                 </>

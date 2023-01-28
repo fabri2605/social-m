@@ -41,6 +41,7 @@ export const RegisterForm = ({ userSubmition, registredOrNot }: Props) => {
                     <i className='material-icons'>local_post_office</i>
                 </div>
                 <label className='col-sm-2 col-form-label'>Email</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;
                 <input
                     className='form-control ml-5'
                     type={'email'}
@@ -54,6 +55,7 @@ export const RegisterForm = ({ userSubmition, registredOrNot }: Props) => {
                     <i className='material-icons'>contacts</i>
                 </div>
                 <label className='col-sm-2 col-form-label'>Username</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;
                 <input
                     className='form-control'
                     type={'text'}
@@ -67,6 +69,7 @@ export const RegisterForm = ({ userSubmition, registredOrNot }: Props) => {
                     <i className='material-icons'>extension</i>
                 </div>
                 <label className='col-sm-2 col-form-label mr-2'>Password</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;
                 <input
                     className='form-control'
                     type={'password'}
