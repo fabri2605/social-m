@@ -81,6 +81,7 @@ export const SinglePub = ({ e, upvoteRequest }: Props) => {
                     <div className={styles.avatar}>
                         <img
                             alt='avatar'
+                            onClick={goToProfile}
                             className={styles.avatar__image}
                             src={
                                 person?.avatar

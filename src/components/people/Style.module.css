@@ -8,8 +8,6 @@
 }
 
 .avatar {
-
-    margin-bottom: 3px;
     padding: 0;
     /* Rounded border */
     border-radius: 50%;
@@ -20,22 +18,13 @@
     justify-content: center;
 
     /* Size */
-    height: 2rem;
-    width: 2rem;
+    height: 3rem;
+    width: 3rem;
+    margin-bottom: 4px;
 }
 
 .avatar__image {
     height: 50%;
     width: 50%;
     cursor: pointer;
-}
-
-.date {
-    position: absolute;
-    bottom: -3%;
-    margin-left: auto;
-    margin-right: auto;
-    left: 0;
-    right: 0;
-    text-align: center;
 }
