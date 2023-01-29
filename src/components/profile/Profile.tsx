@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
@@ -32,23 +32,28 @@ export const Profile = () => {
 
     const [changingPass, setChangingPass] = useState(false);
     const [changingDesc, setChangingDesc] = useState(false);
+
     const [newPass, setNewPass] = useState(user?.password ? user.password : '');
     const [newDesc, setNewDesc] = useState(
         user?.description ? user.description : ''
     );
     const [avatar, setAvatar] = useState('');
-    const bringProfile = async () => {
+
+    const bringProfile = /* useCallback( */ async () => {
+        console.log('bring')
         const storage = localStorage.getItem('lg');
         if(storage){
             logById(storage);
         }else{
             navigate('/login');
         }
-        const useru: user = await findById(params.profileof!);
-        setUser(useru);
-        setAvatar(useru.avatar ? useru.avatar.url : avatars[0].url);
+        const dbuser: user = await findById(params.profileof!);
+        setUser(dbuser);
+        setNewPass(dbuser?.password ? dbuser.password : '');
+        setNewDesc(dbuser?.description ? dbuser.description : '');
+        setAvatar(dbuser.avatar ? dbuser.avatar.url : avatars[0].url);
         setIsLoading(false);
-    };
+    }/* ,[user?.username]) */;
 
     const changePassHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         setNewPass(e.target.value);
@@ -86,7 +91,7 @@ export const Profile = () => {
 
     useEffect(() => {
         bringProfile();
-    }, [isLogged]);
+    }, [isLogged?.username, isLogged?.description, isLogged?.avatar]);
 
     return (
         <div className='container'>
