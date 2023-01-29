@@ -13,6 +13,8 @@ import avatarOne from '../assets/avatar.png';
 import avatarGlass from '../assets/avatarGlass.png';
 import avatarWom from '../assets/avatarWom.png';
 import avatarRed from '../assets/avatarWomRed.png';
+import menGlass from '../assets/menGlass.png';
+import womBlond from '../assets/womBlond.png';
 
 export interface avatar {
     url: string;
@@ -40,6 +42,7 @@ interface usersInterface {
     setIsLoading: (b: boolean) => void;
     changePassword: (pass: string, id: string) => void;
     changeDescription: (desc: string, id: string) => void;
+    changeAvatar: (av: avatar, id: string) => void;
     findById: (id: string) => Promise<any>;
     avatars: avatar[];
 }
@@ -54,8 +57,10 @@ export const UserCtxProvider = ({ children }: any) => {
     const avatars: avatar[] = [
         { url: avatarOne, name: 'avatar' },
         { url: avatarGlass, name: 'avatarGlass' },
+        { url: menGlass, name: 'menGlass' },
         { url: avatarRed, name: 'avatarRed' },
         { url: avatarWom, name: 'avatarWom' },
+        { url: womBlond, name: 'womBlond' },
     ];
 
     const bringData = async () => {
@@ -160,6 +165,21 @@ export const UserCtxProvider = ({ children }: any) => {
         }
     };
 
+    const changeAvatar = async (avatar: avatar, id: string) => {
+        try {
+            setIsLoading(true);
+            await updateDoc(doc(db, 'users', id), {
+                ...isLogged,
+                avatar,
+            });
+            setIsLogged(await findById(id));
+            bringData();
+            setIsLoading(false);
+        } catch (e) {
+            console.error('Error editting document: ', e);
+        }
+    }
+
     useEffect(() => {
         bringData();
     }, []);
@@ -180,6 +200,7 @@ export const UserCtxProvider = ({ children }: any) => {
                 findById,
                 changeDescription,
                 avatars,
+                changeAvatar
             }}
         >
             {children}

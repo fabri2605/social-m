@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { Upvotes } from '../upvotes/Upvotes';
 
-import avatar from '../../assets/avatar.png';
+import avatarDefault from '../../assets/avatar.png';
 
 import styles from './Styles.module.css';
 
@@ -24,7 +24,9 @@ export const SinglePub = ({ e, upvoteRequest }: Props) => {
 
     const navigate = useNavigate();
 
-    let found = e.upvotes.find((e) =>  e?.username === isLogged?.username);
+    let found = e.upvotes.find((e) => e?.username === isLogged?.username);
+
+    let person = users.find((u)=>u.username === e.username);
 
     const [showingUpvotes, setShowingUpvotes] = useState(false);
 
@@ -74,7 +76,15 @@ export const SinglePub = ({ e, upvoteRequest }: Props) => {
             <div className='card-header d-flex justify-content-between p-1'>
                 <div className={styles.avatarcont}>
                     <div className={styles.avatar}>
-                        <img alt='avatar' className={styles.avatar__image} src={avatar} />
+                        <img
+                            alt='avatar'
+                            className={styles.avatar__image}
+                            src={
+                                person?.avatar
+                                    ? person?.avatar.url
+                                    : avatarDefault
+                            }
+                        />
                     </div>
                     <h6
                         style={{ cursor: 'pointer' }}

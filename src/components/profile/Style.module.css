@@ -8,7 +8,6 @@
 }
 
 .avatar {
-
     margin-bottom: 3px;
     padding: 0;
     /* Rounded border */
@@ -20,11 +19,30 @@
     justify-content: center;
 
     /* Size */
-    height: 2rem;
-    width: 2rem;
+    height: 5rem;
+    width: 5rem;
 }
 
 .avatar__image {
     height: 50%;
     width: 50%;
+}
+.avatarcontprof {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.avatarprof {
+    /* Rounded border */
+    border-radius: 50%;
+
+    /* Center the content */
+    align-items: center;
+    width: 100%;
+}
+.avatar__imageprof {
+    margin: 4px;
+    height: 30%;
+    width: 30%;
 }

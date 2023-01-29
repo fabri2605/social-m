@@ -1,17 +1,30 @@
 import { Nav } from '../navbar/Nav';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { user, UserContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { Person } from './Person';
 
 export const People = () => {
-    const { users } = useContext(UserContext);
+    const { users, logById } = useContext(UserContext);
     const navigate = useNavigate();
 
     const goToProfile = (e: user) => {
         const propietary = users.find((u) => u.username === e.username);
         navigate(`/profile/${propietary?.id}`);
     };
+
+    const bringInfo = () => {
+        const storage = localStorage.getItem('lg');
+        if(storage){
+            logById(storage);
+        }else{
+            navigate('/login');
+        }
+    };
+
+    useEffect(()=>{
+        bringInfo();
+    },[]);
 
     return (
         <>

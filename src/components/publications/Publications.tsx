@@ -8,8 +8,7 @@ import { MiniSpinner } from '../spinner/MiniSpinner';
 import { SinglePub } from './SinglePub';
 
 export const Publications = ({ filterByUser }: { filterByUser: string }) => {
-    const { publications, upvotingPub } =
-        useContext(PublicationsContext);
+    const { publications, upvotingPub } = useContext(PublicationsContext);
     const { isLogged } = useContext(UserContext);
     const upvoteRequest = (pub: publication) => {
         let work = true;
@@ -24,12 +23,15 @@ export const Publications = ({ filterByUser }: { filterByUser: string }) => {
 
     return (
         <>
-            {filterByUser && publications.filter((e) => e.username === filterByUser).length ===
-                0 ? (
-                <p style={{ textAlign: 'center', marginTop: '10px' }}>
-                    Hasnt published anything yet..
-                </p> ): <p style={{marginTop: '10px' }}>History</p>
-            }
+            {filterByUser &&
+                (publications.filter((e) => e.username === filterByUser)
+                    .length === 0 ? (
+                    <p style={{ textAlign: 'center', marginTop: '10px' }}>
+                        Hasnt published anything yet..
+                    </p>
+                ) : (
+                    <p style={{ marginTop: '10px' }}>History</p>
+                ))}
             {!filterByUser && <h2 className='mt-3 mb-3'>Feed</h2>}
             <div className={`list-group`}>
                 {publications && publications.length > 0 ? (

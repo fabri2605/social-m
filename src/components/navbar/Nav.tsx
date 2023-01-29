@@ -1,13 +1,27 @@
 import { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 export const Nav = () => {
     const { isLogged, logoutUser } = useContext(UserContext);
     const navigate = useNavigate();
 
     const logoutHandler = () => {
-        logoutUser();
-        navigate('/login');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'We have just met!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, log out!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire('Logged Out!', 'Hope to see you soon!', 'success');
+                logoutUser();
+                navigate('/login');
+            }
+        });
     };
 
     return (

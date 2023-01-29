@@ -10,7 +10,8 @@ import Swal from 'sweetalert2';
 export function Login() {
     const [isRegistred, setIsRegistred] = useState(true);
     const [error, setError] = useState('');
-    const { users, registerUser, loginUser, isLoading, setIsLoading } = useContext(UserContext);
+    const { users, registerUser, loginUser, isLoading, setIsLoading } =
+        useContext(UserContext);
     const navigate = useNavigate();
 
     const userLogin = async (username: string, password: string) => {
@@ -25,10 +26,10 @@ export function Login() {
                     setIsLoading(true);
                     loginUser(user);
                     Swal.fire(
-                        'Good job!',
+                        'Nice!',
                         'You log in correctly!',
                         'success'
-                    ).then(()=>navigate('/'));
+                    ).then(() => navigate('/'));
                 }
             }
         } catch (e) {
@@ -52,12 +53,12 @@ export function Login() {
                 setIsLoading(true);
                 setIsRegistred(true);
                 setError('');
-                registerUser({ email, username, password, id:'1' });
+                registerUser({ email, username, password, id: '1' });
                 Swal.fire(
                     'Good job!',
                     'You have registered correctly!',
                     'success'
-                ).then(()=>navigate('/'));
+                ).then(() => navigate('/'));
             }
         } catch (e) {
             setError(`Error: ${e}`);
@@ -68,9 +69,9 @@ export function Login() {
         setIsRegistred((e) => !e);
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         setIsLoading(false);
-    },[]);
+    }, []);
 
     if (isLoading) return <Spinner />;
 
@@ -89,7 +90,19 @@ export function Login() {
                     />
                 )}
                 {error && <p className='text-danger'>{error}</p>}
-                <p style={{textAlign: 'center', paddingBottom: '10px'}}>Page done by Fabricio Di Paolo</p>
+                <p
+                    style={{
+                        position: 'absolute',
+                        bottom: 0,
+                        marginLeft: 'auto',
+                        marginRight: 'auto',
+                        left: 0,
+                        right: 0,
+                        textAlign:'center'
+                    }}
+                >
+                    Page done by Fabricio Di Paolo
+                </p>
             </div>
         </div>
     );

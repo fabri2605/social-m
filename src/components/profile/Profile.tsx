@@ -1,5 +1,6 @@
 import { useContext, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 import { UserContext, user, avatar } from '../../context/UserContext';
 
@@ -7,6 +8,7 @@ import { Nav } from '../navbar/Nav';
 import { Publications } from '../publications/Publications';
 import { MiniSpinner } from '../spinner/MiniSpinner';
 import { Spinner } from '../spinner/Spinner';
+import { ModalAvatars } from './ModalAvatars';
 
 import styles from './Style.module.css';
 
@@ -19,25 +21,34 @@ export const Profile = () => {
         isLoading,
         setIsLoading,
         avatars,
+        logById,
+        changeAvatar
     } = useContext(UserContext);
     const params = useParams();
+    const navigate = useNavigate();
     const [user, setUser] = useState<user>();
 
     const storage = localStorage.getItem('lg');
 
     const [changingPass, setChangingPass] = useState(false);
     const [changingDesc, setChangingDesc] = useState(false);
-    const [photo, setPhoto] = useState('');
     const [newPass, setNewPass] = useState(user?.password ? user.password : '');
     const [newDesc, setNewDesc] = useState(
         user?.description ? user.description : ''
     );
-    const [avatar, setAvatar] = useState(user ? user.avatar : avatars[0].url);
+    const [avatar, setAvatar] = useState('');
     const bringProfile = async () => {
+        const storage = localStorage.getItem('lg');
+        if(storage){
+            logById(storage);
+        }else{
+            navigate('/login');
+        }
         const useru: user = await findById(params.profileof!);
         setUser(useru);
         setNewDesc(useru.description ? useru.description : '');
         setNewPass(useru.password);
+        setAvatar(useru.avatar ? useru.avatar.url : avatars[0].url);
         setIsLoading(false);
     };
 
@@ -65,8 +76,12 @@ export const Profile = () => {
         }
     };
 
-    const photoSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.value);
+
+    const changeAvatarHan = (avatar : avatar, id : string) => {
+        changeAvatar(avatar, id);
+        setUser({...user!, avatar});
+        Swal.fire('All good!', 'Avatar changed correctly!', 'success');
+        document.getElementById("avatarsModal")!.click();
     };
 
     const isProp = user?.username === isLogged?.username;
@@ -102,16 +117,34 @@ export const Profile = () => {
                                 </div>
                             )}
                         </div>
+                        {/* 
+                        
+                        AVATAR
+                        
+                        */}
                         <div className='card-body'>
                             <div className={styles.avatarcont}>
                                 <h4 className='card-title'>{user.username}</h4>
                                 <div className={styles.avatar}>
-                                <img
-                                    className={styles.avatar__image}
-                                    src={avatar ? avatar.toString() : ''}
-                                    alt='avatar'
-                                />
-                            </div>
+                                    <img
+                                        className={styles.avatar__image}
+                                        src={avatar}
+                                        alt='avatar'
+                                    />
+                                </div>
+                                {isProp && (
+                                    <>
+                                        <button
+                                            type='button'
+                                            className='btn btn-success m-1'
+                                            data-bs-toggle='modal'
+                                            data-bs-target='#exampleModal'
+                                        >
+                                            Chose avatar
+                                        </button>
+                                        <ModalAvatars changeHan={changeAvatarHan} userId={user.id} key={'pro'} />
+                                    </>
+                                )}
                             </div>
                             <p className='card-text'>
                                 {newDesc
@@ -141,26 +174,6 @@ export const Profile = () => {
                                     Edit description
                                 </button>
                             )}
-                            {/* &nbsp;
-                            <div className='form-group m-1'>
-                                <label
-                                    htmlFor='formFile'
-                                    className='form-label mt-4'
-                                >
-                                    Change your profile photo!
-                                </label>
-                                <input
-                                    onChange={(e)=>photoSubmit(e)}
-                                    className='form-control'
-                                    type='file'
-                                    id='formFile'
-                                />
-                                <button
-                                    className='btn btn-info mt-2'
-                                >
-                                    Upload
-                                </button>
-                                </div>*/}
                         </>
                     )}
                 </>
