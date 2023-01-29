@@ -46,8 +46,6 @@ export const Profile = () => {
         }
         const useru: user = await findById(params.profileof!);
         setUser(useru);
-        setNewDesc(useru.description ? useru.description : '');
-        setNewPass(useru.password);
         setAvatar(useru.avatar ? useru.avatar.url : avatars[0].url);
         setIsLoading(false);
     };

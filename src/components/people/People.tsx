@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Person } from './Person';
 
 export const People = () => {
-    const { users, logById } = useContext(UserContext);
+    const { users, logById, isLogged } = useContext(UserContext);
     const navigate = useNavigate();
 
     const goToProfile = (e: user) => {
@@ -15,25 +15,33 @@ export const People = () => {
 
     const bringInfo = () => {
         const storage = localStorage.getItem('lg');
-        if(storage){
+        if (storage) {
             logById(storage);
-        }else{
+        } else {
             navigate('/login');
         }
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         bringInfo();
-    },[]);
+    }, []);
 
     return (
         <>
             <Nav />
             <div>
                 {users.length > 0 &&
-                    users.map((u) => {
-                        return <Person key={u.username} u={u} goToProfile={goToProfile} />;
-                    })}
+                    users
+                        .filter((e) => e.username !== isLogged?.username)
+                        .map((u) => {
+                            return (
+                                <Person
+                                    key={u.username}
+                                    u={u}
+                                    goToProfile={goToProfile}
+                                />
+                            );
+                        })}
             </div>
             <p
                 style={{
