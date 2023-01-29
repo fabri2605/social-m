@@ -28,11 +28,12 @@ export const SinglePub = ({ e, upvoteRequest }: Props) => {
 
     let person = users.find((u)=>u.username === e.username);
 
-    const [showingUpvotes, setShowingUpvotes] = useState(false);
-
     const auxSecs = Number(e.date.toLocaleString().substring(18, 28));
     const auxDate = new Date(auxSecs * 1000);
     const relDate = auxDate.toDateString();
+
+    const color = e.upvotes.length < 2 ? 'primary' : (e.upvotes.length < 4 ? 'warning' : 'danger');
+    
 
     const upvoteReqHandler = () => {
         setIsPubLoading(e.id);
@@ -50,11 +51,12 @@ export const SinglePub = ({ e, upvoteRequest }: Props) => {
             confirmButtonText: 'Yes, delete it!',
         }).then((result) => {
             if (result.isConfirmed) {
+                deletingPub(e);
                 Swal.fire(
                     'Deleted!',
                     'Your file has been deleted.',
                     'success'
-                ).then(() => deletingPub(e));
+                );
             }
         });
     };
@@ -64,13 +66,9 @@ export const SinglePub = ({ e, upvoteRequest }: Props) => {
         navigate(`/profile/${propietary?.id}`);
     };
 
-    const goToUpvotes = () => {
-        setShowingUpvotes(true);
-    };
-
     return (
         <div
-            className='card border-primary mb-3 pb-2'
+            className={`card border-${color} mb-3 pb-2`}
             style={{ borderRadius: '10px' }}
         >
             <div className='card-header d-flex justify-content-between p-1'>
@@ -114,7 +112,7 @@ export const SinglePub = ({ e, upvoteRequest }: Props) => {
                             className={`material-icons ${
                                 true && 'text-danger'
                             }`}
-                            style={{ cursor: 'pointer', marginTop: '2px' }}
+                            style={{ cursor: 'pointer', marginTop: '4px' }}
                         >
                             delete_forever
                         </i>
@@ -123,7 +121,7 @@ export const SinglePub = ({ e, upvoteRequest }: Props) => {
                     <i
                         onClick={upvoteReqHandler}
                         className={`material-icons ${found && 'text-success'}`}
-                        style={{ cursor: 'pointer', marginTop: '5px' }}
+                        style={{ cursor: 'pointer', marginTop: '4px' }}
                     >
                         arrow_upward
                     </i>

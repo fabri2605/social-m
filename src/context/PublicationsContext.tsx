@@ -27,6 +27,7 @@ interface publicationsInterface {
     deletingPub: (pub: publication) => void;
     setIsPubLoading: React.Dispatch<React.SetStateAction<string>>;
     isPubLoading: string;
+    isPublishing: boolean;
 }
 
 export const PublicationsContext = createContext({} as publicationsInterface);
@@ -34,9 +35,11 @@ export const PublicationsContext = createContext({} as publicationsInterface);
 export const PublicationsProvider = ({ children }: any) => {
     const [publications, setPublications] = useState<publication[]>([]);
     const [isPubLoading, setIsPubLoading] = useState('');
+    const [isPublishing, setIsPublishing] = useState(false);
 
     const publish = async (txt: string, username: string) => {
         try {
+            setIsPublishing(true);
             const date = new Date();
             const docRef = await addDoc(collection(db, 'publications'), {
                 id: 1,
@@ -49,6 +52,7 @@ export const PublicationsProvider = ({ children }: any) => {
                 id: docRef.id,
             });
             bringPublications();
+            setIsPublishing(false);
         } catch (e) {
             console.error('Error adding document: ', e);
         }
@@ -119,6 +123,7 @@ export const PublicationsProvider = ({ children }: any) => {
                 setIsPubLoading,
                 isPubLoading,
                 deletingPub,
+                isPublishing
             }}
         >
             {children}

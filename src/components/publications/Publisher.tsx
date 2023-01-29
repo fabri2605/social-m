@@ -1,10 +1,11 @@
 import { useState, useContext } from 'react';
 import { PublicationsContext } from '../../context/PublicationsContext';
 import { UserContext } from '../../context/UserContext';
+import { PubLoader } from '../spinner/PubLoader';
 export const Publisher = () => {
     const [pub, setPub] = useState('');
     const [error, setError] = useState('');
-    const { publish, bringPublications } = useContext(PublicationsContext);
+    const { publish, bringPublications, isPublishing } = useContext(PublicationsContext);
     const { isLogged } = useContext(UserContext);
 
     const changePubHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -38,9 +39,26 @@ export const Publisher = () => {
                 onChange={(e) => changePubHandler(e)}
             ></textarea>
             {error && <p className='text-danger m-0'>{error}</p>}
-            <button onClick={submitHandler} className='btn btn-primary mt-3'>
-                Publish
-            </button>
+            <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                }}
+            >
+                <button
+                    onClick={submitHandler}
+                    className='btn btn-primary mt-3'
+                >
+                    Publish
+                </button>
+                {isPublishing && (
+                    <div style={{ marginRight: window.innerWidth/3, marginTop: '16px' }}>
+                        <PubLoader />
+                    </div>
+                )}
+            </div>
         </div>
     );
 };
