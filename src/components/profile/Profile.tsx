@@ -1,12 +1,14 @@
 import { useContext, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { UserContext, user } from '../../context/UserContext';
+import { UserContext, user, avatar } from '../../context/UserContext';
 
 import { Nav } from '../navbar/Nav';
 import { Publications } from '../publications/Publications';
 import { MiniSpinner } from '../spinner/MiniSpinner';
 import { Spinner } from '../spinner/Spinner';
+
+import styles from './Style.module.css';
 
 export const Profile = () => {
     const {
@@ -16,6 +18,7 @@ export const Profile = () => {
         changeDescription,
         isLoading,
         setIsLoading,
+        avatars,
     } = useContext(UserContext);
     const params = useParams();
     const [user, setUser] = useState<user>();
@@ -29,6 +32,7 @@ export const Profile = () => {
     const [newDesc, setNewDesc] = useState(
         user?.description ? user.description : ''
     );
+    const [avatar, setAvatar] = useState(user ? user.avatar : avatars[0].url);
     const bringProfile = async () => {
         const useru: user = await findById(params.profileof!);
         setUser(useru);
@@ -99,11 +103,21 @@ export const Profile = () => {
                             )}
                         </div>
                         <div className='card-body'>
-                            <h4 className='card-title'>{user.username}</h4>
+                            <div className={styles.avatarcont}>
+                                <h4 className='card-title'>{user.username}</h4>
+                                <div className={styles.avatar}>
+                                <img
+                                    className={styles.avatar__image}
+                                    src={avatar ? avatar.toString() : ''}
+                                    alt='avatar'
+                                />
+                            </div>
+                            </div>
                             <p className='card-text'>
                                 {newDesc
-                                    ? newDesc :
-                                    isProp ? 'Write something about yourself!'
+                                    ? newDesc
+                                    : isProp
+                                    ? 'Write something about yourself!'
                                     : `${user.username} doesnt have a description yet..`}
                             </p>
                         </div>

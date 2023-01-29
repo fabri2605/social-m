@@ -4,8 +4,8 @@ import { PublicationsContext } from '../../context/PublicationsContext';
 export const Upvotes = ({ pubId }: { pubId: string }) => {
     const { publications } = useContext(PublicationsContext);
 
-    const pub = publications.find((p) => p.id === pubId);
-    console.log(pub?.upvotes);
+    const pub = publications.find((p) => p?.id === pubId);
+
     return (
         <div
             className='modal fade'
@@ -29,7 +29,13 @@ export const Upvotes = ({ pubId }: { pubId: string }) => {
                     </div>
                     <div className='modal-body'>
                         {pub && (
-                            <table style={{overflow:'hidden', borderRadius:'10px'}} className='table table-hover'>
+                            <table
+                                style={{
+                                    overflow: 'hidden',
+                                    borderRadius: '10px',
+                                }}
+                                className='table table-hover'
+                            >
                                 <thead>
                                     <tr>
                                         <th scope='col'>State</th>
@@ -38,15 +44,16 @@ export const Upvotes = ({ pubId }: { pubId: string }) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {pub.upvotes.map((u) => {
+                                    {pub.upvotes?.map((u) => {
                                         return (
-                                            <>
-                                                <tr className='table-active'>
-                                                    <th scope='row'>Active</th>
-                                                    <td>{u.username}</td>
-                                                    <td>{u.id.substring(0,5)}</td>
-                                                </tr>
-                                            </>
+                                            <tr
+                                                key={u?.id + pub.id}
+                                                className='table-active'
+                                            >
+                                                <th scope='row'>Active</th>
+                                                <td>{u?.username}</td>
+                                                <td>{u?.id.substring(0, 5)}</td>
+                                            </tr>
                                         );
                                     })}
                                 </tbody>

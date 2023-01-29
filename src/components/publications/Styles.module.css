@@ -1,0 +1,41 @@
+.avatarcont {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.avatar {
+
+    margin-bottom: 3px;
+    padding: 0;
+    /* Rounded border */
+    border-radius: 50%;
+
+    /* Center the content */
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+    /* Size */
+    height: 2rem;
+    width: 2rem;
+}
+
+.avatar__image {
+    height: 50%;
+    width: 50%;
+}
+
+.date {
+    position: absolute;
+    bottom: -3%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+}

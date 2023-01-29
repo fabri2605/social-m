@@ -9,12 +9,22 @@ import {
 } from 'firebase/firestore';
 import { db } from '../firebase';
 
+import avatarOne from '../assets/avatar.png';
+import avatarGlass from '../assets/avatarGlass.png';
+import avatarWom from '../assets/avatarWom.png';
+import avatarRed from '../assets/avatarWomRed.png';
+
+export interface avatar {
+    url: string;
+    name: string;
+}
 export interface user {
     username: string;
     email: string;
     password: string;
     age?: number;
     id: string;
+    avatar?: avatar;
     description?: string;
 }
 
@@ -31,6 +41,7 @@ interface usersInterface {
     changePassword: (pass: string, id: string) => void;
     changeDescription: (desc: string, id: string) => void;
     findById: (id: string) => Promise<any>;
+    avatars: avatar[];
 }
 
 export const UserContext = createContext({} as usersInterface);
@@ -39,6 +50,13 @@ export const UserCtxProvider = ({ children }: any) => {
     const [users, setUsers] = useState<user[]>([]);
     const [isLogged, setIsLogged] = useState<user | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+
+    const avatars: avatar[] = [
+        { url: avatarOne, name: 'avatar' },
+        { url: avatarGlass, name: 'avatarGlass' },
+        { url: avatarRed, name: 'avatarRed' },
+        { url: avatarWom, name: 'avatarWom' },
+    ];
 
     const bringData = async () => {
         try {
@@ -62,7 +80,10 @@ export const UserCtxProvider = ({ children }: any) => {
                 id: docRef.id,
             });
             bringData();
-            setIsLogged(user);
+            setIsLogged({
+                ...user,
+                id: docRef.id,
+            });
         } catch (e) {
             console.error('Error adding document: ', e);
         }
@@ -81,6 +102,7 @@ export const UserCtxProvider = ({ children }: any) => {
                     localStorage.setItem('lg', doc.id);
                 }
             });
+            setIsLogged(user);
         } catch (e) {
             console.error('Error adding document: ', e);
         }
@@ -157,6 +179,7 @@ export const UserCtxProvider = ({ children }: any) => {
                 changePassword,
                 findById,
                 changeDescription,
+                avatars,
             }}
         >
             {children}

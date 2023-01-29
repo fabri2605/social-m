@@ -7,6 +7,11 @@ import { UserContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { Upvotes } from '../upvotes/Upvotes';
+
+import avatar from '../../assets/avatar.png';
+
+import styles from './Styles.module.css';
+
 interface Props {
     e: publication;
     upvoteRequest: (e: publication) => void;
@@ -19,7 +24,7 @@ export const SinglePub = ({ e, upvoteRequest }: Props) => {
 
     const navigate = useNavigate();
 
-    let found = e.upvotes.find((e) => e.username === isLogged?.username);
+    let found = e.upvotes.find((e) =>  e?.username === isLogged?.username);
 
     const [showingUpvotes, setShowingUpvotes] = useState(false);
 
@@ -63,19 +68,23 @@ export const SinglePub = ({ e, upvoteRequest }: Props) => {
 
     return (
         <div
-            className='card border-primary mb-3'
+            className='card border-primary mb-3 pb-2'
             style={{ borderRadius: '10px' }}
-            key={e.date.toString() + e.username}
         >
-            <div className='card-header d-flex justify-content-between pb-1'>
-                <h6
-                    style={{ cursor: 'pointer' }}
-                    className='txt mt-1'
-                    onClick={goToProfile}
-                >
-                    {e.username}
-                </h6>
-                <h6 className='txt mt-1 opacity-50' style={{ cursor: 'none' }}>
+            <div className='card-header d-flex justify-content-between p-1'>
+                <div className={styles.avatarcont}>
+                    <div className={styles.avatar}>
+                        <img alt='avatar' className={styles.avatar__image} src={avatar} />
+                    </div>
+                    <h6
+                        style={{ cursor: 'pointer' }}
+                        className='txt mt-2'
+                        onClick={goToProfile}
+                    >
+                        {e.username}
+                    </h6>
+                </div>
+                <h6 className={`txt mt-1 opacity-25 ${styles.date}`}>
                     {relDate}
                 </h6>
                 {isPubLoading === e.id && (
@@ -104,7 +113,7 @@ export const SinglePub = ({ e, upvoteRequest }: Props) => {
                     <i
                         onClick={upvoteReqHandler}
                         className={`material-icons ${found && 'text-success'}`}
-                        style={{ cursor: 'pointer', marginTop: '1px' }}
+                        style={{ cursor: 'pointer', marginTop: '5px' }}
                     >
                         arrow_upward
                     </i>
@@ -114,13 +123,16 @@ export const SinglePub = ({ e, upvoteRequest }: Props) => {
                         className='txt opacity-50'
                         data-bs-toggle='modal'
                         data-bs-target={`#${e.id}`}
-                        style={{border: 'none', backgroundColor:'rgba(255, 255, 255, 0)'}}
+                        style={{
+                            border: 'none',
+                            backgroundColor: 'rgba(255, 255, 255, 0)',
+                        }}
                     >
                         {e.upvotes.length}
                     </button>
                 </div>
             </div>
-            <Upvotes pubId={e.id} />
+            {e.upvotes.length > 0 && <Upvotes pubId={e.id} />}
             <div className='card-body'>
                 {e.title && <h4 className='card-title'>{e.title}</h4>}
                 <p className='card-text'>{e.txt}</p>

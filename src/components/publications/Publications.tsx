@@ -14,7 +14,7 @@ export const Publications = ({ filterByUser }: { filterByUser: string }) => {
     const upvoteRequest = (pub: publication) => {
         let work = true;
         pub.upvotes.forEach((user) => {
-            if (user.username === isLogged?.username) {
+            if (user?.username === isLogged?.username) {
                 upvotingPub(pub, isLogged, false);
                 work = false;
             }
