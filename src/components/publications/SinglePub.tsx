@@ -26,14 +26,23 @@ export const SinglePub = ({ e, upvoteRequest }: Props) => {
 
     let found = e.upvotes.find((e) => e?.username === isLogged?.username);
 
-    let person = users.find((u)=>u.username === e.username);
+    let person = users.find((u) => u.username === e.username);
 
     const auxSecs = Number(e.date.toLocaleString().substring(18, 28));
     const auxDate = new Date(auxSecs * 1000);
     const relDate = auxDate.toDateString();
 
-    const color = e.upvotes.length < 2 ? 'primary' : (e.upvotes.length < 4 ? 'warning' : 'danger');
-    
+    // gris celeste azul verde amarillo
+    const color =
+        e.upvotes.length < 1
+            ? 'secondary'
+            : e.upvotes.length < 2
+            ? 'primary'
+            : e.upvotes.length < 3
+            ? 'success'
+            : e.upvotes.length < 4
+            ? 'info'
+            : 'warning';
 
     const upvoteReqHandler = () => {
         setIsPubLoading(e.id);
@@ -52,11 +61,7 @@ export const SinglePub = ({ e, upvoteRequest }: Props) => {
         }).then((result) => {
             if (result.isConfirmed) {
                 deletingPub(e);
-                Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-                );
+                Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
             }
         });
     };
