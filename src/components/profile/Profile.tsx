@@ -22,7 +22,7 @@ export const Profile = () => {
         setIsLoading,
         avatars,
         logById,
-        changeAvatar
+        changeAvatar,
     } = useContext(UserContext);
     const params = useParams();
     const navigate = useNavigate();
@@ -39,12 +39,12 @@ export const Profile = () => {
     );
     const [avatar, setAvatar] = useState('');
 
-    const bringProfile = /* useCallback( */ async () => {
-        console.log('bring')
+    const bringProfile = useCallback(async () => {
+        console.log('bring');
         const storage = localStorage.getItem('lg');
-        if(storage){
+        if (storage) {
             logById(storage);
-        }else{
+        } else {
             navigate('/login');
         }
         const dbuser: user = await findById(params.profileof!);
@@ -53,7 +53,7 @@ export const Profile = () => {
         setNewDesc(dbuser?.description ? dbuser.description : '');
         setAvatar(dbuser.avatar ? dbuser.avatar.url : avatars[0].url);
         setIsLoading(false);
-    }/* ,[user?.username]) */;
+    }, [avatars, findById, logById, navigate, params.profileof, setIsLoading]);
 
     const changePassHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         setNewPass(e.target.value);
@@ -79,19 +79,18 @@ export const Profile = () => {
         }
     };
 
-
-    const changeAvatarHan = (avatar : avatar, id : string) => {
+    const changeAvatarHan = (avatar: avatar, id: string) => {
         changeAvatar(avatar, id);
-        setUser({...user!, avatar});
+        setUser({ ...user!, avatar });
         Swal.fire('All good!', 'Avatar changed correctly!', 'success');
-        document.getElementById("avatarsModal")!.click();
+        document.getElementById('avatarsModal')!.click();
     };
 
     const isProp = user?.username === isLogged?.username;
 
     useEffect(() => {
         bringProfile();
-    }, [isLogged?.username, isLogged?.description, isLogged?.avatar]);
+    }, []);
 
     return (
         <div className='container'>
@@ -102,7 +101,7 @@ export const Profile = () => {
                         {isProp && 'Welcome to your profile!'}
                     </h3>
                     <div
-                        style={{ borderRadius: '5px' }}
+                        style={{ borderRadius: '10px' }}
                         className='card border-warning mb-3 mt-3'
                     >
                         <div className='card-header txt mt-1 opacity-50'>
@@ -112,7 +111,7 @@ export const Profile = () => {
                                     style={{
                                         position: 'absolute',
                                         right: 70,
-                                        top: -19,
+                                        top: -10,
                                         width: '10px',
                                     }}
                                 >
@@ -125,7 +124,7 @@ export const Profile = () => {
                         AVATAR
                         
                         */}
-                        <div className='card-body'>
+                        <div className='card-body pt-0'>
                             <div className={styles.avatarcont}>
                                 <h4 className='card-title'>{user.username}</h4>
                                 <div className={styles.avatar}>
@@ -139,13 +138,17 @@ export const Profile = () => {
                                     <>
                                         <button
                                             type='button'
-                                            className='btn btn-success m-1'
+                                            className='btn btn-outline-success m-1'
                                             data-bs-toggle='modal'
                                             data-bs-target='#exampleModal'
                                         >
-                                            Chose avatar
+                                            Avatars
                                         </button>
-                                        <ModalAvatars changeHan={changeAvatarHan} userId={user.id} key={'pro'} />
+                                        <ModalAvatars
+                                            changeHan={changeAvatarHan}
+                                            userId={user.id}
+                                            key={'pro'}
+                                        />
                                     </>
                                 )}
                             </div>
@@ -163,7 +166,7 @@ export const Profile = () => {
                             {!changingPass && (
                                 <button
                                     onClick={() => setChangingPass(true)}
-                                    className='btn btn-warning m-1'
+                                    className='btn btn-outline-warning m-1 mb-2'
                                 >
                                     Change password
                                 </button>
@@ -172,7 +175,7 @@ export const Profile = () => {
                             {!changingDesc && (
                                 <button
                                     onClick={() => setChangingDesc(true)}
-                                    className='btn btn-primary m-1'
+                                    className='btn btn-outline-primary m-1'
                                 >
                                     Edit description
                                 </button>
@@ -201,7 +204,7 @@ export const Profile = () => {
                         <div className='valid-feedback'>That looks nice!</div>
                         <button
                             disabled={newPass.length < 7 ? true : false}
-                            className='btn btn-warning mt-2 text-white'
+                            className='btn btn-outline-warning mt-2 text-white'
                             onClick={passwordSubmit}
                         >
                             Done
@@ -228,7 +231,7 @@ export const Profile = () => {
                         <div className='valid-feedback'>That looks nice!</div>
                         <button
                             disabled={newDesc.length < 5 ? true : false}
-                            className='btn btn-primary mt-2 text-white'
+                            className='btn btn-outline-primary mt-2 text-white'
                             onClick={descriptionSubmit}
                         >
                             Done

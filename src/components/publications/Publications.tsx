@@ -33,8 +33,8 @@ export const Publications = ({ filterByUser }: { filterByUser: string }) => {
                     <p style={{ marginTop: '10px' }}>History</p>
                 ))}
             {!filterByUser && <h2 className='mt-3 mb-3'>Feed</h2>}
-            <div className={`list-group`}>
-                {publications && publications.length > 0 ? (
+            <div style={{backgroundColor:'#ffffff00', boxShadow:'none'}} className={`list-group`}>
+                {publications.length > 0 ? (
                     publications.map((e) => {
                         if (filterByUser) {
                             return (

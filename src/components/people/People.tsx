@@ -27,7 +27,7 @@ export const People = () => {
     }, []);
 
     return (
-        <>
+        <div className='container'>
             <Nav />
             <div>
                 {users.length > 0 &&
@@ -52,6 +52,6 @@ export const People = () => {
             >
                 Page done by Fabricio Di Paolo
             </p>
-        </>
+        </div>
     );
 };

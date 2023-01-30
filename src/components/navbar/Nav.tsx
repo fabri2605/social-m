@@ -25,14 +25,16 @@ export const Nav = () => {
     };
 
     return (
-        <nav className='navbar navbar-expand-lg navbar-dark bg-primary rounded mb-2'>
+        <>
+        <div style={{height: '6px'}}></div>
+        <nav className='navbar navbar-expand-lg navbar-dark bg-primary rounded mb-2 nav-pills'>
             <div className='container-fluid'>
                 <a
                     className='navbar-brand'
                     style={{ cursor: 'pointer' }}
                     onClick={() => navigate('/')}
-                >
-                    Social.v2
+                    >
+                    Wav3
                 </a>
                 <button
                     className='navbar-toggler'
@@ -52,7 +54,7 @@ export const Nav = () => {
                                 className='nav-link'
                                 role='button'
                                 onClick={() => navigate('/')}
-                            >
+                                >
                                 Home
                             </a>
                         </li>
@@ -81,7 +83,7 @@ export const Nav = () => {
                                     className='dropdown-item'
                                     style={{ cursor: 'pointer' }}
                                     onClick={() => navigate(`/people`)}
-                                >
+                                    >
                                     Meet People
                                 </a>
                                 <div className='dropdown-divider'></div>
@@ -89,7 +91,7 @@ export const Nav = () => {
                                     className='dropdown-item text-danger'
                                     onClick={logoutHandler}
                                     style={{ cursor: 'pointer' }}
-                                >
+                                    >
                                     Log out
                                 </a>
                             </div>
@@ -97,19 +99,20 @@ export const Nav = () => {
                     </ul>
                     {/* <form className='d-flex'>
                         <input
-                            className='form-control me-sm-2'
-                            type='search'
-                            placeholder='Search'
+                        className='form-control me-sm-2'
+                        type='search'
+                        placeholder='Search'
                         />
                         <button
-                            className='btn btn-secondary my-2 my-sm-0'
-                            type='submit'
+                        className='btn btn-secondary my-2 my-sm-0'
+                        type='submit'
                         >
-                            Search
+                        Search
                         </button>
                     </form> */}
                 </div>
             </div>
         </nav>
+                    </>
     );
 };

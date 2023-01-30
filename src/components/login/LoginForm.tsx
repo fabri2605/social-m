@@ -1,7 +1,7 @@
 
 import { useForm } from '../../hooks/useForm';
-import logo from '../../assets/Social.jpg';
-
+import logo from '../../assets/logoBlack.png';
+import styles from './Styles.module.css';
 interface Props {
     userSubmition: (u: string, p: string) => void;
     registredOrNot: ()=>void;
@@ -29,18 +29,17 @@ export const LoginForm = ({ userSubmition, registredOrNot }: Props) => {
     return (
         <form
             autoComplete='off'
-            style={{borderRadius: '5px'}}
+            style={{borderRadius: '15px'}}
             className='card card-body'
             onSubmit={(e) => submitHandler(e)}
         >
-            <h1>Social.v2</h1>
-            {/* <img src={logo} /> */}
+            <h1 className={styles.title}>WAVE 3.0</h1>
+            <img className={styles.logo} src={logo} />
             <div className='form-group input-group mb-3 mt-3'>
-                <div style={{backgroundColor: 'none'}} className='input-group-text'>
+                <div style={{padding:'16px 5px 16px 15px'}} className='input-group-text'>
                     <i className='material-icons'>contacts</i>
                 </div>
-                <label className='col-sm-2 col-form-label'>Username</label>
-                &nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;
                 <input
                     className='form-control'
                     type={'text'}
@@ -50,10 +49,9 @@ export const LoginForm = ({ userSubmition, registredOrNot }: Props) => {
                 />
             </div>
             <div className='form-group input-group mb-3'>
-                <div className='input-group-text'>
+                <div style={{padding:'16px 5px 16px 15px'}} className='input-group-text pl-0 pr-0'>
                     <i className='material-icons'>extension</i>
                 </div>
-                <label className='col-sm-2 col-form-label mr-2'>Password</label>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <input
                     className='form-control'

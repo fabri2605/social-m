@@ -147,7 +147,7 @@ export const SinglePub = ({ e, upvoteRequest }: Props) => {
                 </div>
             </div>
             {e.upvotes.length > 0 && <Upvotes pubId={e.id} />}
-            <div className='card-body'>
+            <div style={{padding: '10px 15px 15px 15px'}} className='card-body'>
                 {e.title && <h4 className='card-title'>{e.title}</h4>}
                 <p className='card-text'>{e.txt}</p>
             </div>

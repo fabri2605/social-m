@@ -1,9 +1,9 @@
-
 import { useForm } from '../../hooks/useForm';
-
+import logo from '../../assets/logoBlack.png';
+import styles from './Styles.module.css';
 interface Props {
     userSubmition: (e: string, u: string, p: string) => void;
-    registredOrNot: ()=>void;
+    registredOrNot: () => void;
 }
 
 export const RegisterForm = ({ userSubmition, registredOrNot }: Props) => {
@@ -31,16 +31,21 @@ export const RegisterForm = ({ userSubmition, registredOrNot }: Props) => {
     return (
         <form
             autoComplete='off'
-            className='card card-body rounded'
+            style={{borderRadius: '15px'}}
+            className='card card-body'
             onSubmit={(e) => submitHandler(e)}
         >
-            <h1>Social.v2</h1>
+            <h1 className={styles.title}>WAVE 3.0</h1>
+            <img className={styles.logo} src={logo} />
+
             <div className='form-group input-group mb-3 mt-3'>
-                <div className='input-group-text'>
+                <div
+                    style={{ padding: '16px 5px 16px 15px' }}
+                    className='input-group-text'
+                >
                     <i className='material-icons'>local_post_office</i>
                 </div>
-                <label className='col-sm-2 col-form-label'>Email</label>
-                &nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;
                 <input
                     className='form-control ml-5'
                     type={'email'}
@@ -50,11 +55,13 @@ export const RegisterForm = ({ userSubmition, registredOrNot }: Props) => {
                 />
             </div>
             <div className='form-group input-group mb-3'>
-                <div className='input-group-text'>
+                <div
+                    style={{ padding: '16px 5px 16px 15px' }}
+                    className='input-group-text'
+                >
                     <i className='material-icons'>contacts</i>
                 </div>
-                <label className='col-sm-2 col-form-label'>Username</label>
-                &nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;
                 <input
                     className='form-control'
                     type={'text'}
@@ -64,21 +71,30 @@ export const RegisterForm = ({ userSubmition, registredOrNot }: Props) => {
                 />
             </div>
             <div className='form-group input-group mb-3 d-flex flex-row justify-content-start'>
-                <div className='input-group-text'>
+                <div
+                    style={{ padding: '16px 5px 16px 15px' }}
+                    className='input-group-text'
+                >
                     <i className='material-icons'>extension</i>
                 </div>
-                <label className='col-sm-2 col-form-label mr-2'>Password</label>
-                &nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;
                 <input
                     className='form-control'
                     type={'password'}
                     value={pass}
-                    placeholder={'anyuser123'}
+                    placeholder={'password'}
                     onChange={(e) => action('pass', e.target.value)}
                 />
             </div>
             <p className='mt-1 mb-3'>
-                Already have an account? <a style={{cursor: 'pointer'}} className='text-warning' onClick={registredOrNot}>Login</a>
+                Already have an account?{' '}
+                <a
+                    style={{ cursor: 'pointer' }}
+                    className='text-warning'
+                    onClick={registredOrNot}
+                >
+                    Login
+                </a>
             </p>
             {error && <p className='text-danger'>{error}</p>}
             <button className='btn btn-primary'>Register</button>
