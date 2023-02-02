@@ -40,7 +40,6 @@ export const Profile = () => {
     const [avatar, setAvatar] = useState(user?.avatar?.url ? user.avatar.url : '');
 
     const bringProfile = useCallback(async () => {
-        console.log('bring');
         const storage = localStorage.getItem('lg');
         if (storage) {
             logById(storage);
