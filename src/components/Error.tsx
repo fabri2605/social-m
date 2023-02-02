@@ -15,6 +15,7 @@ export const Error = () => {
                 <h1 className='text-danger'>There has been some error..</h1>
             </div>
             <h3 className='text-warning'>Try reloading the page!</h3>
+            
         </div>
     );
 };

@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 
 import { UserContext, user, avatar } from '../../context/UserContext';
 
-import { Nav } from '../navbar/Nav';
+import { Nav } from '../nav&foot/Nav';
 import { Publications } from '../publications/Publications';
 import { MiniSpinner } from '../spinner/MiniSpinner';
 import { Spinner } from '../spinner/Spinner';

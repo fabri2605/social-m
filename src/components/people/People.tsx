@@ -1,9 +1,10 @@
-import { Nav } from '../navbar/Nav';
+import { Nav } from '../nav&foot/Nav';
 import { useCallback, useContext, useEffect } from 'react';
 import { user, UserContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { Person } from './Person';
 import { Spinner } from '../spinner/Spinner';
+import { Footer } from '../nav&foot/Footer';
 
 export const People = () => {
     const { users, logById, isLogged } = useContext(UserContext);
@@ -23,7 +24,7 @@ export const People = () => {
         if (storage) {
             logById(storage);
         } else {
-            navigate('/login');
+            logDissaprobed();
         }
     }, []);
 
@@ -31,7 +32,7 @@ export const People = () => {
         <div className='container'>
             <Nav />
             <div>
-                {users.length > 0 ?
+                {users.length > 0 ? (
                     users
                         .filter((e) => e.username !== isLogged?.username)
                         .map((u) => {
@@ -42,17 +43,12 @@ export const People = () => {
                                     goToProfile={goToProfile}
                                 />
                             );
-                        }) : <Spinner />}
+                        })
+                ) : (
+                    <Spinner />
+                )}
             </div>
-            <p
-                style={{
-                    textAlign: 'center',
-                    paddingBottom: '10px',
-                    marginBottom: '1px',
-                }}
-            >
-                Page done by Fabricio Di Paolo
-            </p>
+            <Footer />
         </div>
     );
 };

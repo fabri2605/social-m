@@ -6,6 +6,7 @@ import { Spinner } from '../spinner/Spinner';
 import { LoginForm } from './LoginForm';
 import { RegisterForm } from './RegisterForm';
 import Swal from 'sweetalert2';
+import { Footer } from '../nav&foot/Footer';
 
 export function Login() {
     const [isRegistred, setIsRegistred] = useState(true);
@@ -25,11 +26,9 @@ export function Login() {
                 } else {
                     setIsLoading(true);
                     loginUser(user);
-                    Swal.fire(
-                        'Nice!',
-                        'You log in correctly!',
-                        'success'
-                    ).then(() => navigate('/'));
+                    Swal.fire('Nice!', 'You log in correctly!', 'success').then(
+                        () => navigate('/')
+                    );
                 }
             }
         } catch (e) {
@@ -73,6 +72,15 @@ export function Login() {
         setIsLoading(false);
     }, []);
 
+    const footer = {
+        position: 'absolute',
+        bottom: 0,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        left: 0,
+        right: 0,
+    };
+
     if (isLoading) return <Spinner />;
 
     return (
@@ -90,19 +98,7 @@ export function Login() {
                     />
                 )}
                 {error && <p className='text-danger'>{error}</p>}
-                <p
-                    style={{
-                        position: 'absolute',
-                        bottom: 0,
-                        marginLeft: 'auto',
-                        marginRight: 'auto',
-                        left: 0,
-                        right: 0,
-                        textAlign:'center'
-                    }}
-                >
-                    Page done by Fabricio Di Paolo
-                </p>
+                <Footer styles={footer} />
             </div>
         </div>
     );

@@ -2,7 +2,8 @@ import { useEffect, useContext, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { UserContext } from '../context/UserContext';
-import { Nav } from './navbar/Nav';
+import { Footer } from './nav&foot/Footer';
+import { Nav } from './nav&foot/Nav';
 import { Publications } from './publications/Publications';
 import { Publisher } from './publications/Publisher';
 
@@ -49,6 +50,9 @@ export const Home = () => {
     return (
         <div className='container'>
             <Nav />
+
+            {/* WARNING - page not finished */}
+
             <div className='alert alert-dismissible alert-warning mb-2'>
                 <button
                     type='button'
@@ -71,7 +75,7 @@ export const Home = () => {
 
             <Publisher />
             <Publications filterByUser={''} />
-            <p style={{textAlign: 'center', paddingBottom: '10px'}}>Page done by Fabricio Di Paolo</p>
+            <Footer />
         </div>
     );
 };
