@@ -37,10 +37,10 @@ export const Home = () => {
 
     useEffect(() => {
         const storage = localStorage.getItem('lg');
-        if (!storage) {
-            logDissaprobed();
-        } else {
+        if (storage) {
             logging(storage);
+        } else {
+            logDissaprobed();
         }
     }, [logDissaprobed, logging]);
 

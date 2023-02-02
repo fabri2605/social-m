@@ -1,36 +1,37 @@
 import { Nav } from '../navbar/Nav';
-import { useContext, useEffect } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 import { user, UserContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { Person } from './Person';
+import { Spinner } from '../spinner/Spinner';
 
 export const People = () => {
     const { users, logById, isLogged } = useContext(UserContext);
     const navigate = useNavigate();
+
+    const logDissaprobed = useCallback(() => {
+        navigate('/login');
+    }, [navigate]);
 
     const goToProfile = (e: user) => {
         const propietary = users.find((u) => u.username === e.username);
         navigate(`/profile/${propietary?.id}`);
     };
 
-    const bringInfo = () => {
+    useEffect(() => {
         const storage = localStorage.getItem('lg');
         if (storage) {
             logById(storage);
         } else {
             navigate('/login');
         }
-    };
-
-    useEffect(() => {
-        bringInfo();
     }, []);
 
     return (
         <div className='container'>
             <Nav />
             <div>
-                {users.length > 0 &&
+                {users.length > 0 ?
                     users
                         .filter((e) => e.username !== isLogged?.username)
                         .map((u) => {
@@ -41,7 +42,7 @@ export const People = () => {
                                     goToProfile={goToProfile}
                                 />
                             );
-                        })}
+                        }) : <Spinner />}
             </div>
             <p
                 style={{

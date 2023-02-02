@@ -37,7 +37,7 @@ export const Profile = () => {
     const [newDesc, setNewDesc] = useState(
         user?.description ? user.description : ''
     );
-    const [avatar, setAvatar] = useState('');
+    const [avatar, setAvatar] = useState(user?.avatar?.url ? user.avatar.url : '');
 
     const bringProfile = useCallback(async () => {
         console.log('bring');
@@ -81,6 +81,7 @@ export const Profile = () => {
 
     const changeAvatarHan = (avatar: avatar, id: string) => {
         changeAvatar(avatar, id);
+        setAvatar(avatar.url);
         setUser({ ...user!, avatar });
         Swal.fire('All good!', 'Avatar changed correctly!', 'success');
         document.getElementById('avatarsModal')!.click();

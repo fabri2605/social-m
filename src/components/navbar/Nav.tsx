@@ -94,7 +94,6 @@ export const Nav = () => {
                                     >
                                         Meet People
                                     </a>
-                                    <div className='dropdown-divider'></div>
                                     <a
                                         className='dropdown-item text-danger'
                                         onClick={logoutHandler}
