@@ -89,6 +89,7 @@ export const Profile = () => {
     const isProp = user?.username === isLogged?.username;
 
     useEffect(() => {
+        console.log('pro');
         bringProfile();
     }, []);
 

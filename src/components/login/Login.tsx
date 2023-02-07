@@ -70,7 +70,7 @@ export function Login() {
 
     useEffect(() => {
         setIsLoading(false);
-    }, []);
+    }, [setIsLoading]);
 
     const footer = {
         position: 'absolute',

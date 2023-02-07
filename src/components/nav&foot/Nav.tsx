@@ -32,11 +32,12 @@ export const Nav = () => {
             <nav className='navbar navbar-expand-lg navbar-dark bg-primary rounded mb-2 nav-pills'>
                 <div className='container-fluid'>
                     <div>
-                        <img className={styles.logonav} src={logo} />
+                        <img alt='logo' className={styles.logonav} src={logo} />
                         <a
                             className='navbar-brand'
                             style={{ cursor: 'pointer' }}
                             onClick={() => navigate('/')}
+                            href="#!"
                         >
                             Wave
                         </a>
@@ -62,6 +63,7 @@ export const Nav = () => {
                                     className='nav-link'
                                     role='button'
                                     onClick={() => navigate('/')}
+                                    href="#!"
                                 >
                                     Home
                                 </a>
@@ -70,7 +72,7 @@ export const Nav = () => {
                                 <a
                                     className='nav-link dropdown-toggle'
                                     data-bs-toggle='dropdown'
-                                    href='#'
+                                    href="#!"
                                     role='button'
                                     aria-haspopup='true'
                                     aria-expanded='false'
@@ -84,10 +86,12 @@ export const Nav = () => {
                                         onClick={() =>
                                             navigate(`/profile/${isLogged!.id}`)
                                         }
+                                        href="#!"
                                     >
                                         {isLogged?.username.toUpperCase()}
                                     </a>
                                     <a
+                                        href="#!"
                                         className='dropdown-item'
                                         style={{ cursor: 'pointer' }}
                                         onClick={() => navigate(`/people`)}
@@ -98,6 +102,7 @@ export const Nav = () => {
                                         className='dropdown-item text-danger'
                                         onClick={logoutHandler}
                                         style={{ cursor: 'pointer' }}
+                                        href="#!"
                                     >
                                         Log out
                                     </a>

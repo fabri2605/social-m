@@ -92,6 +92,7 @@ export const RegisterForm = ({ userSubmition, registredOrNot }: Props) => {
                     style={{ cursor: 'pointer' }}
                     className='text-warning'
                     onClick={registredOrNot}
+                    href="#!"
                 >
                     Login
                 </a>
