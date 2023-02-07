@@ -34,7 +34,7 @@ export const LoginForm = ({ userSubmition, registredOrNot }: Props) => {
             onSubmit={(e) => submitHandler(e)}
         >
             <h1 className={styles.title}>WAVE 3.0</h1>
-            <img className={styles.logo} src={logo} />
+            <img alt='logo' className={styles.logo} src={logo} />
             <div className='form-group input-group mb-3 mt-3'>
                 <div style={{padding:'16px 5px 16px 15px'}} className='input-group-text'>
                     <i className='material-icons'>contacts</i>
