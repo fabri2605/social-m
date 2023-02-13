@@ -1,10 +1,9 @@
-
 import { useForm } from '../../hooks/useForm';
 import logo from '../../assets/logoBlack.png';
 import styles from './Styles.module.css';
 interface Props {
     userSubmition: (u: string, p: string) => void;
-    registredOrNot: ()=>void;
+    registredOrNot: () => void;
 }
 
 export const LoginForm = ({ userSubmition, registredOrNot }: Props) => {
@@ -29,18 +28,15 @@ export const LoginForm = ({ userSubmition, registredOrNot }: Props) => {
     return (
         <form
             autoComplete='off'
-            style={{borderRadius: '15px'}}
+            style={{ borderRadius: '15px' }}
             className='card card-body'
             onSubmit={(e) => submitHandler(e)}
         >
             <h1 className={styles.title}>WAVE 3.0</h1>
             <img alt='logo' className={styles.logo} src={logo} />
             <div className='form-group input-group mb-3 mt-3'>
-                <div style={{padding:'16px 5px 16px 15px'}} className='input-group-text'>
-                    <i className='material-icons'>contacts</i>
-                </div>
-                &nbsp;&nbsp;&nbsp;
                 <input
+                    style={{ padding: '15px' }}
                     className='form-control'
                     type={'text'}
                     value={user}
@@ -49,11 +45,8 @@ export const LoginForm = ({ userSubmition, registredOrNot }: Props) => {
                 />
             </div>
             <div className='form-group input-group mb-3'>
-                <div style={{padding:'16px 5px 16px 15px'}} className='input-group-text pl-0 pr-0'>
-                    <i className='material-icons'>extension</i>
-                </div>
-                &nbsp;&nbsp;&nbsp;&nbsp;
                 <input
+                    style={{ padding: '15px' }}
                     className='form-control'
                     type={'password'}
                     value={pass}
@@ -61,11 +54,21 @@ export const LoginForm = ({ userSubmition, registredOrNot }: Props) => {
                     onChange={(e) => action('pass', e.target.value)}
                 />
             </div>
-            <p className='mt-1 mb-3'>
-                Don't have an account? <a href="#!" style={{cursor: 'pointer'}} className='text-warning' onClick={registredOrNot}> Register</a>
-            </p>
+
             {error && <p className='text-danger'>{error}</p>}
-            <button className='btn btn-primary'>Login</button>
+            <button className='btn btn-outline-info'>Login</button>
+            <p className='mt-3 mb-0'>
+                Don't have an account?{' '}
+                <a
+                    href='#!'
+                    style={{ cursor: 'pointer' }}
+                    className='text-warning'
+                    onClick={registredOrNot}
+                >
+                    {' '}
+                    Register
+                </a>
+            </p>
         </form>
     );
 };

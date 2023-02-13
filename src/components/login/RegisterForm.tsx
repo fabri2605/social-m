@@ -28,10 +28,20 @@ export const RegisterForm = ({ userSubmition, registredOrNot }: Props) => {
         }
     };
 
+    {
+        /* <div
+                    style={{ padding: '16px 5px 16px 15px' }}
+                    className='input-group-text'
+                >
+                    <i className='material-icons'>local_post_office</i>
+                </div>
+                &nbsp;&nbsp;&nbsp; */
+    }
+
     return (
         <form
             autoComplete='off'
-            style={{borderRadius: '15px'}}
+            style={{ borderRadius: '15px' }}
             className='card card-body'
             onSubmit={(e) => submitHandler(e)}
         >
@@ -39,14 +49,8 @@ export const RegisterForm = ({ userSubmition, registredOrNot }: Props) => {
             <img alt='logo' className={styles.logo} src={logo} />
 
             <div className='form-group input-group mb-3 mt-3'>
-                <div
-                    style={{ padding: '16px 5px 16px 15px' }}
-                    className='input-group-text'
-                >
-                    <i className='material-icons'>local_post_office</i>
-                </div>
-                &nbsp;&nbsp;&nbsp;
                 <input
+                    style={{ padding: '15px' }}
                     className='form-control ml-5'
                     type={'email'}
                     value={email}
@@ -55,14 +59,8 @@ export const RegisterForm = ({ userSubmition, registredOrNot }: Props) => {
                 />
             </div>
             <div className='form-group input-group mb-3'>
-                <div
-                    style={{ padding: '16px 5px 16px 15px' }}
-                    className='input-group-text'
-                >
-                    <i className='material-icons'>contacts</i>
-                </div>
-                &nbsp;&nbsp;&nbsp;
                 <input
+                    style={{ padding: '15px' }}
                     className='form-control'
                     type={'text'}
                     value={user}
@@ -71,34 +69,35 @@ export const RegisterForm = ({ userSubmition, registredOrNot }: Props) => {
                 />
             </div>
             <div className='form-group input-group mb-3 d-flex flex-row justify-content-start'>
-                <div
-                    style={{ padding: '16px 5px 16px 15px' }}
-                    className='input-group-text'
-                >
-                    <i className='material-icons'>extension</i>
-                </div>
-                &nbsp;&nbsp;&nbsp;
                 <input
+                    style={{ padding: '15px' }}
                     className='form-control'
                     type={'password'}
                     value={pass}
                     placeholder={'password'}
                     onChange={(e) => action('pass', e.target.value)}
                 />
+                {/* <div
+                    style={{ padding: '16px 5px 16px 15px' }}
+                    className='input-group-text'
+                >
+                    <i className='material-icons'>visibility_off</i>
+                </div> */}
             </div>
-            <p className='mt-1 mb-3'>
+
+            {error && <p className='text-danger'>{error}</p>}
+            <button className='btn btn-outline-info'>Register</button>
+            <p className='mt-3 mb-0'>
                 Already have an account?{' '}
                 <a
                     style={{ cursor: 'pointer' }}
                     className='text-warning'
                     onClick={registredOrNot}
-                    href="#!"
+                    href='#!'
                 >
                     Login
                 </a>
             </p>
-            {error && <p className='text-danger'>{error}</p>}
-            <button className='btn btn-primary'>Register</button>
         </form>
     );
 };

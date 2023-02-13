@@ -23,6 +23,7 @@ export const Profile = () => {
         avatars,
         logById,
         changeAvatar,
+        logoutUser
     } = useContext(UserContext);
     const params = useParams();
     const navigate = useNavigate();
@@ -37,7 +38,9 @@ export const Profile = () => {
     const [newDesc, setNewDesc] = useState(
         user?.description ? user.description : ''
     );
-    const [avatar, setAvatar] = useState(user?.avatar?.url ? user.avatar.url : '');
+    const [avatar, setAvatar] = useState(
+        user?.avatar?.url ? user.avatar.url : ''
+    );
 
     const bringProfile = useCallback(async () => {
         const storage = localStorage.getItem('lg');
@@ -84,6 +87,24 @@ export const Profile = () => {
         setUser({ ...user!, avatar });
         Swal.fire('All good!', 'Avatar changed correctly!', 'success');
         document.getElementById('avatarsModal')!.click();
+    };
+
+    const logoutHandler = () => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'We have just met!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, log out!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire('Logged Out!', 'Hope to see you soon!', 'success');
+                logoutUser();
+                navigate('/login');
+            }
+        });
     };
 
     const isProp = user?.username === isLogged?.username;
@@ -163,7 +184,7 @@ export const Profile = () => {
                         </div>
                     </div>
                     {isProp && (
-                        <>
+                        <div style={{display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center'}}>
                             {!changingPass && (
                                 <button
                                     onClick={() => setChangingPass(true)}
@@ -181,7 +202,13 @@ export const Profile = () => {
                                     Edit description
                                 </button>
                             )}
-                        </>
+                            <button
+                                    onClick={() => logoutHandler()}
+                                    className='btn btn-outline-danger m-1'
+                                >
+                                    Log Out
+                            </button>
+                        </div>
                     )}
                 </>
             ) : (

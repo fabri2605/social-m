@@ -5,26 +5,9 @@ import logo from '../../assets/logoWhite.png';
 import styles from '../login/Styles.module.css';
 import Swal from 'sweetalert2';
 export const Nav = () => {
-    const { isLogged, logoutUser } = useContext(UserContext);
+    const { isLogged } = useContext(UserContext);
     const navigate = useNavigate();
 
-    const logoutHandler = () => {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: 'We have just met!',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, log out!',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire('Logged Out!', 'Hope to see you soon!', 'success');
-                logoutUser();
-                navigate('/login');
-            }
-        });
-    };
 
     return (
         <>
@@ -37,7 +20,7 @@ export const Nav = () => {
                             className='navbar-brand'
                             style={{ cursor: 'pointer' }}
                             onClick={() => navigate('/')}
-                            href="#!"
+                            href='#!'
                         >
                             Wave
                         </a>
@@ -63,16 +46,39 @@ export const Nav = () => {
                                     className='nav-link'
                                     role='button'
                                     onClick={() => navigate('/')}
-                                    href="#!"
+                                    href='#!'
                                 >
                                     Home
                                 </a>
                             </li>
-                            <li className='nav-item dropdown'>
+                            <li>
+                                <a
+                                    href='#!'
+                                    className='nav-link'
+                                    style={{ cursor: 'pointer' }}
+                                    onClick={() => navigate(`/people`)}
+                                >
+                                    Meet People
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    className='nav-link'
+                                    style={{ color: '#fda615',  }}
+                                    onClick={() =>
+                                        navigate(`/profile/${isLogged!.id}`)
+                                    }
+                                    href='#!'
+                                >
+                                    {isLogged?.username.toUpperCase()}
+                                </a>
+                            </li>
+
+                            {/* <li className='nav-item dropdown'>
                                 <a
                                     className='nav-link dropdown-toggle'
                                     data-bs-toggle='dropdown'
-                                    href="#!"
+                                    href='#!'
                                     role='button'
                                     aria-haspopup='true'
                                     aria-expanded='false'
@@ -81,33 +87,15 @@ export const Nav = () => {
                                 </a>
                                 <div className='dropdown-menu'>
                                     <a
-                                        className='dropdown-item text-warning'
-                                        style={{ cursor: 'pointer' }}
-                                        onClick={() =>
-                                            navigate(`/profile/${isLogged!.id}`)
-                                        }
-                                        href="#!"
-                                    >
-                                        {isLogged?.username.toUpperCase()}
-                                    </a>
-                                    <a
-                                        href="#!"
-                                        className='dropdown-item'
-                                        style={{ cursor: 'pointer' }}
-                                        onClick={() => navigate(`/people`)}
-                                    >
-                                        Meet People
-                                    </a>
-                                    <a
                                         className='dropdown-item text-danger'
                                         onClick={logoutHandler}
                                         style={{ cursor: 'pointer' }}
-                                        href="#!"
+                                        href='#!'
                                     >
                                         Log out
                                     </a>
                                 </div>
-                            </li>
+                            </li> */}
                         </ul>
                         <form className='d-flex'>
                             {/* <input
