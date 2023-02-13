@@ -63,14 +63,15 @@ export const Nav = () => {
                             </li>
                             <li>
                                 <a
-                                    className='nav-link'
+                                    className='nav-link text-capitalize'
                                     style={{ color: '#fda615',  }}
                                     onClick={() =>
                                         navigate(`/profile/${isLogged!.id}`)
                                     }
                                     href='#!'
-                                >
-                                    {isLogged?.username.toUpperCase()}
+                                >   
+                                
+                                    {isLogged?.username}
                                 </a>
                             </li>
 

@@ -69,7 +69,7 @@ export const Home = () => {
                     >
                         Clicking here!
                     </a>
-                    .
+                    ..
                 </p>
             </div>
 
