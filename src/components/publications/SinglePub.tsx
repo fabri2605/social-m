@@ -91,7 +91,7 @@ export const SinglePub = ({ e, upvoteRequest }: Props) => {
                         />
                     </div>
                     <h6
-                        style={{ cursor: 'pointer' }}
+                        style={{ cursor: 'pointer', opacity: 0.5 }}
                         className='txt mt-2'
                         onClick={goToProfile}
                     >
@@ -149,7 +149,7 @@ export const SinglePub = ({ e, upvoteRequest }: Props) => {
             {e.upvotes.length > 0 && <Upvotes pubId={e.id} />}
             <div style={{padding: '10px 15px 15px 15px'}} className='card-body'>
                 {e.title && <h4 className='card-title'>{e.title}</h4>}
-                <p className='card-text'>{e.txt.replace(/gay|puta|puto/g, '***')}</p>
+                <p style={{fontWeight: 700}} className='card-text'>{e.txt.replace(/gay|puta|puto/g, '***')}</p>
             </div>
         </div>
     );

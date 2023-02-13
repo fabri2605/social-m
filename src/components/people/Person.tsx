@@ -14,7 +14,6 @@ export const Person = ({ u, goToProfile }: Props) => {
             className={`card ${
                 u.username === 'leko' ? 'border-warning' : 'border-info'
             } mb-3`}
-            style={{ margin: '20px' }}
         >
             <div className='card-header'>{u.email}</div>
             <div className='card-body pt-1'>
