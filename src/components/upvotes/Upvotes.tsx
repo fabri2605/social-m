@@ -8,7 +8,7 @@ export const Upvotes = ({ pubId }: { pubId: string }) => {
 
     return (
         <div
-            className='modal fade'
+            className='modal fade mt-5'
             id={`${pub?.id}`}
             tabIndex={-1}
             aria-labelledby='exampleModalLabel'
@@ -59,15 +59,6 @@ export const Upvotes = ({ pubId }: { pubId: string }) => {
                                 </tbody>
                             </table>
                         )}
-                    </div>
-                    <div className='modal-footer'>
-                        <button
-                            type='button'
-                            className='btn btn-primary'
-                            data-bs-dismiss='modal'
-                        >
-                            Close
-                        </button>
                     </div>
                 </div>
             </div>
