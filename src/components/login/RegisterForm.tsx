@@ -77,10 +77,10 @@ export const RegisterForm = ({ userSubmition, registredOrNot }: Props) => {
                 <div
                     onClick={visibleHandler}
                     style={{
-                        backgroundColor: '#E8F0FE',
                         display: 'flex',
                         alignItems: 'center',
                         paddingRight: '15px',
+                        paddingLeft: '15px',
                         cursor:'pointer'
                     }}
                 >

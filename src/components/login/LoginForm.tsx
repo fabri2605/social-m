@@ -57,16 +57,16 @@ export const LoginForm = ({ userSubmition, registredOrNot }: Props) => {
                     className='form-control'
                     type={visible ? 'text' : 'password'}
                     value={pass}
-                    placeholder={'anypassword'}
+                    placeholder={'password'}
                     onChange={(e) => action('pass', e.target.value)}
                 />
                 <div
                     onClick={visibleHandler}
                     style={{
-                        backgroundColor: '#E8F0FE',
                         display: 'flex',
                         alignItems: 'center',
                         paddingRight: '15px',
+                        paddingLeft: '15px',
                         cursor:'pointer'
                     }}
                 >
