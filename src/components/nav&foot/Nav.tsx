@@ -3,7 +3,6 @@ import { UserContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/logoWhite.png';
 import styles from '../login/Styles.module.css';
-import Swal from 'sweetalert2';
 export const Nav = () => {
     const { isLogged } = useContext(UserContext);
     const navigate = useNavigate();
@@ -14,8 +13,8 @@ export const Nav = () => {
             <div style={{ height: '6px' }}></div>
             <nav className='navbar navbar-expand-lg navbar-dark bg-primary rounded mb-2 nav-pills'>
                 <div className='container-fluid'>
-                    <div>
-                        <img alt='logo' className={styles.logonav} src={logo} />
+                    
+                        <img onClick={() => navigate('/')} alt='logo' className={styles.logonav} src={logo} />
                         <a
                             className='navbar-brand'
                             style={{ cursor: 'pointer' }}
@@ -24,7 +23,6 @@ export const Nav = () => {
                         >
                             Wave
                         </a>
-                    </div>
                     <button
                         className='navbar-toggler'
                         type='button'
@@ -53,25 +51,13 @@ export const Nav = () => {
                             </li>
                             <li>
                                 <a
-                                    href='#!'
-                                    className='nav-link'
-                                    style={{ cursor: 'pointer' }}
-                                    onClick={() => navigate(`/people`)}
-                                >
-                                    Meet People
-                                </a>
-                            </li>
-                            <li>
-                                <a
                                     className='nav-link text-capitalize'
-                                    style={{ color: '#fda615',  }}
                                     onClick={() =>
                                         navigate(`/profile/${isLogged!.id}`)
                                     }
                                     href='#!'
                                 >   
-                                
-                                    {isLogged?.username}
+                                    Profile
                                 </a>
                             </li>
 

@@ -15,7 +15,6 @@ import 'bootswatch/dist/morph/bootstrap.min.css';
 import { Error } from './components/Error';
 import { Profile } from './components/profile/Profile';
 import { PublicationsProvider } from './context/PublicationsContext';
-import { People } from './components/people/People';
 
 import './App.css';
 
@@ -36,11 +35,6 @@ const router = createBrowserRouter([
     {
         path: '/profile/:profileof',
         element: <Profile />,
-        errorElement: <Error />,
-    },
-    {
-        path: '/people',
-        element: <People />,
         errorElement: <Error />,
     },
     {

@@ -10,6 +10,21 @@
 }
 
 .logonav{
-    width: 40px;
+    width: 50px;
     margin-right: 10px;
+    animation:  rotating 2s linear infinite;
+}
+
+@keyframes rotating {
+    0%{
+        transform: rotate(-30deg);
+    }
+    50%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(-30deg);
+    }
+
+
 }

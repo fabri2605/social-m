@@ -49,7 +49,7 @@ export const Publisher = () => {
             >
                 <button
                     onClick={submitHandler}
-                    className='btn btn-primary mt-3'
+                    className='btn btn-dark mt-3'
                 >
                     Publish
                 </button>
