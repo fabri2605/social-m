@@ -1,6 +1,7 @@
 import { useForm } from '../../hooks/useForm';
 import logo from '../../assets/logoBlack.png';
 import styles from './Styles.module.css';
+import { useState } from 'react';
 interface Props {
     userSubmition: (e: string, u: string, p: string) => void;
     registredOrNot: () => void;
@@ -13,6 +14,8 @@ export const RegisterForm = ({ userSubmition, registredOrNot }: Props) => {
         email: '',
         error: '',
     });
+
+    const [visible, setVisible] = useState(false);
 
     const submitHandler = (e: any) => {
         e.preventDefault();
@@ -28,15 +31,9 @@ export const RegisterForm = ({ userSubmition, registredOrNot }: Props) => {
         }
     };
 
-    {
-        /* <div
-                    style={{ padding: '16px 5px 16px 15px' }}
-                    className='input-group-text'
-                >
-                    <i className='material-icons'>local_post_office</i>
-                </div>
-                &nbsp;&nbsp;&nbsp; */
-    }
+    const visibleHandler = () => {
+        setVisible(e => !e)
+    };
 
     return (
         <form
@@ -72,22 +69,28 @@ export const RegisterForm = ({ userSubmition, registredOrNot }: Props) => {
                 <input
                     style={{ padding: '15px' }}
                     className='form-control'
-                    type={'password'}
+                    type={visible ? 'text' : 'password'}
                     value={pass}
                     placeholder={'password'}
                     onChange={(e) => action('pass', e.target.value)}
                 />
-                {/* <div
-                    style={{ padding: '16px 5px 16px 15px' }}
-                    className='input-group-text'
+                <div
+                    onClick={visibleHandler}
+                    style={{
+                        backgroundColor: '#E8F0FE',
+                        display: 'flex',
+                        alignItems: 'center',
+                        paddingRight: '15px',
+                        cursor:'pointer'
+                    }}
                 >
-                    <i className='material-icons'>visibility_off</i>
-                </div> */}
+                    <i className='material-icons'>{visible ? 'visibility_off' : 'visibility'}</i>
+                </div>
             </div>
 
             {error && <p className='text-danger'>{error}</p>}
             <button className='btn btn-outline-info'>Register</button>
-            <p className='mt-3 mb-0'>
+            <p className='mt-3 mb-0 text-center'>
                 Already have an account?{' '}
                 <a
                     style={{ cursor: 'pointer' }}

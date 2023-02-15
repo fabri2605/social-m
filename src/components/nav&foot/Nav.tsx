@@ -13,16 +13,20 @@ export const Nav = () => {
             <div style={{ height: '6px' }}></div>
             <nav className='navbar navbar-expand-lg navbar-dark bg-primary rounded mb-2 nav-pills'>
                 <div className='container-fluid'>
-                    
-                        <img onClick={() => navigate('/')} alt='logo' className={styles.logonav} src={logo} />
-                        <a
-                            className='navbar-brand'
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => navigate('/')}
-                            href='#!'
-                        >
-                            Wave
-                        </a>
+                    <img
+                        onClick={() => navigate('/')}
+                        alt='logo'
+                        className={styles.logonav}
+                        src={logo}
+                    />
+                    <a
+                        className='navbar-brand'
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => navigate('/')}
+                        href='#!'
+                    >
+                        Wave
+                    </a>
                     <button
                         className='navbar-toggler'
                         type='button'
@@ -56,7 +60,7 @@ export const Nav = () => {
                                         navigate(`/profile/${isLogged!.id}`)
                                     }
                                     href='#!'
-                                >   
+                                >
                                     Profile
                                 </a>
                             </li>

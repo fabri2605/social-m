@@ -1,6 +1,7 @@
 import { useForm } from '../../hooks/useForm';
 import logo from '../../assets/logoBlack.png';
 import styles from './Styles.module.css';
+import { useState } from 'react';
 interface Props {
     userSubmition: (u: string, p: string) => void;
     registredOrNot: () => void;
@@ -13,6 +14,8 @@ export const LoginForm = ({ userSubmition, registredOrNot }: Props) => {
         error: '',
     });
 
+    const [visible, setVisible] = useState(false);
+
     const submitHandler = (e: any) => {
         e.preventDefault();
         if (user.length < 4) {
@@ -23,6 +26,10 @@ export const LoginForm = ({ userSubmition, registredOrNot }: Props) => {
             action('error', '');
             userSubmition(user, pass);
         }
+    };
+
+    const visibleHandler = () => {
+        setVisible(e => !e)
     };
 
     return (
@@ -48,16 +55,28 @@ export const LoginForm = ({ userSubmition, registredOrNot }: Props) => {
                 <input
                     style={{ padding: '15px' }}
                     className='form-control'
-                    type={'password'}
+                    type={visible ? 'text' : 'password'}
                     value={pass}
-                    placeholder={'anyuser123'}
+                    placeholder={'anypassword'}
                     onChange={(e) => action('pass', e.target.value)}
                 />
+                <div
+                    onClick={visibleHandler}
+                    style={{
+                        backgroundColor: '#E8F0FE',
+                        display: 'flex',
+                        alignItems: 'center',
+                        paddingRight: '15px',
+                        cursor:'pointer'
+                    }}
+                >
+                    <i className='material-icons'>{visible ? 'visibility_off' : 'visibility'}</i>
+                </div>
             </div>
 
             {error && <p className='text-danger'>{error}</p>}
             <button className='btn btn-outline-info'>Login</button>
-            <p className='mt-3 mb-0'>
+            <p className='mt-3 mb-0 text-center'>
                 Don't have an account?{' '}
                 <a
                     href='#!'
