@@ -45,6 +45,8 @@ export const Home = () => {
         }
     }, [logDissaprobed, logging]);
 
+    console.log(isLogged)
+
     if (isLoading) return <Spinner />;
 
     return (
