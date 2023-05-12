@@ -15,7 +15,7 @@ export const Publisher = () => {
     const submitHandler = () => {
         if (pub.length < 10) {
             setError('Your publication must be longer!');
-        } else if (pub.length > 70) {
+        } else if (pub.length > 100) {
             setError('Your publication must shorter!');
         } else {
             setError('');
