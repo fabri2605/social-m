@@ -6,13 +6,14 @@ import { getFirestore } from 'firebase/firestore';
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+console.log(process.env.REACT_APP_apiKey)
 const firebaseConfig = {
-  apiKey: "AIzaSyDuPwARDomWaIBvqwUxX1qKOjXPZSbaRWM",
-  authDomain: "social-m-81cfb.firebaseapp.com",
-  projectId: "social-m-81cfb",
-  storageBucket: "social-m-81cfb.appspot.com",
-  messagingSenderId: "477598030422",
-  appId: "1:477598030422:web:5f893ee42fc981eadeb9f7"
+  apiKey: process.env.REACT_APP_apiKey,
+  authDomain: process.env.REACT_APP_authDomain,
+  projectId: process.env.REACT_APP_projectId,
+  storageBucket: process.env.REACT_APP_storageBucket,
+  messagingSenderId: process.env.REACT_APP_messagingSenderId,
+  appId: process.env.REACT_APP_appId
 };
 
 // Initialize Firebase

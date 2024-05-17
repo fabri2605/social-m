@@ -66,7 +66,7 @@ export const Home = () => {
                     This website is not completely developed. If you want to,
                     you can dive into my finished projects ..
                     <a
-                        href='https://my-briefcase-three.vercel.app/'
+                        href='https://workdone-b8e5c.web.app/'
                         className='alert-link'
                     >
                         Clicking here!
