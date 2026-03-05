@@ -2,12 +2,14 @@ import { useForm } from '../../hooks/useForm';
 import logo from '../../assets/logoBlack.png';
 import styles from './Styles.module.css';
 import { useState } from 'react';
+
 interface Props {
     userSubmition: (u: string, p: string) => void;
     registredOrNot: () => void;
+    serverError?: string;
 }
 
-export const LoginForm = ({ userSubmition, registredOrNot }: Props) => {
+export const LoginForm = ({ userSubmition, registredOrNot, serverError }: Props) => {
     const { user, pass, error, action } = useForm({
         user: '',
         pass: '',
@@ -16,78 +18,76 @@ export const LoginForm = ({ userSubmition, registredOrNot }: Props) => {
 
     const [visible, setVisible] = useState(false);
 
-    const submitHandler = (e: any) => {
+    const submitHandler = (e: React.FormEvent) => {
         e.preventDefault();
         if (user.length < 4) {
-            action('error', 'Username cant be that short!');
+            action('error', 'Username must be at least 4 characters.');
         } else if (pass.length < 5) {
-            action('error', 'Password cant be that short!');
+            action('error', 'Password must be at least 5 characters.');
         } else {
             action('error', '');
             userSubmition(user, pass);
         }
     };
 
-    const visibleHandler = () => {
-        setVisible(e => !e)
-    };
+    const displayError = error || serverError;
 
     return (
-        <form
-            autoComplete='off'
-            style={{ borderRadius: '15px' }}
-            className='card card-body'
-            onSubmit={(e) => submitHandler(e)}
-        >
-            <h1 className={styles.title}>WAVE 3.0</h1>
-            <img alt='logo' className={styles.logo} src={logo} />
-            <div className='form-group input-group mb-3 mt-3'>
-                <input
-                    style={{ padding: '15px' }}
-                    className='form-control'
-                    type={'text'}
-                    value={user}
-                    placeholder={'anyuser123'}
-                    onChange={(e) => action('user', e.target.value)}
-                />
-            </div>
-            <div className='form-group input-group mb-3'>
-                <input
-                    style={{ padding: '15px' }}
-                    className='form-control'
-                    type={visible ? 'text' : 'password'}
-                    value={pass}
-                    placeholder={'password'}
-                    onChange={(e) => action('pass', e.target.value)}
-                />
-                <div
-                    onClick={visibleHandler}
-                    style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        paddingRight: '15px',
-                        paddingLeft: '15px',
-                        cursor:'pointer'
-                    }}
-                >
-                    <i className='material-icons'>{visible ? 'visibility_off' : 'visibility'}</i>
-                </div>
+        <div className={styles.card}>
+            <div className={styles.header}>
+                <img alt='logo' className={styles.logo} src={logo} />
+                <h1 className={styles.title}>WAVE 3.0</h1>
+                <span className={styles.subtitle}>Sign in to your account</span>
             </div>
 
-            {error && <p className='text-danger'>{error}</p>}
-            <button className='btn btn-outline-info'>Login</button>
-            <p className='mt-3 mb-0 text-center'>
-                Don't have an account?{' '}
-                <a
-                    href='#!'
-                    style={{ cursor: 'pointer' }}
-                    className='text-warning'
-                    onClick={registredOrNot}
-                >
-                    {' '}
-                    Register
+            <form autoComplete='off' onSubmit={submitHandler}>
+                <div className={styles.inputGroup}>
+                    <label className={styles.inputLabel}>Username</label>
+                    <div className={styles.inputWrapper}>
+                        <i className={`material-icons ${styles.inputIcon}`}>person</i>
+                        <input
+                            className={styles.input}
+                            type='text'
+                            value={user}
+                            placeholder='anyuser123'
+                            onChange={(e) => action('user', e.target.value)}
+                        />
+                    </div>
+                </div>
+
+                <div className={styles.inputGroup}>
+                    <label className={styles.inputLabel}>Password</label>
+                    <div className={styles.inputWrapper}>
+                        <i className={`material-icons ${styles.inputIcon}`}>lock</i>
+                        <input
+                            className={styles.input}
+                            type={visible ? 'text' : 'password'}
+                            value={pass}
+                            placeholder='••••••••'
+                            onChange={(e) => action('pass', e.target.value)}
+                        />
+                        <span className={styles.visibilityBtn} onClick={() => setVisible(v => !v)}>
+                            <i className='material-icons'>{visible ? 'visibility_off' : 'visibility'}</i>
+                        </span>
+                    </div>
+                </div>
+
+                {displayError && (
+                    <div className={styles.error}>
+                        <i className='material-icons' style={{ fontSize: '16px' }}>error_outline</i>
+                        {displayError}
+                    </div>
+                )}
+
+                <button type='submit' className={styles.submitBtn}>Sign in</button>
+            </form>
+
+            <p className={styles.toggleText}>
+                Don't have an account?
+                <a href='#!' className={styles.toggleLink} onClick={registredOrNot}>
+                    Create one
                 </a>
             </p>
-        </form>
+        </div>
     );
 };

@@ -1,3 +1,134 @@
+body {
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    color: #e2e8f0;
+}
+
+/* ── Bootstrap dark overrides ── */
+
+.card {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    color: #e2e8f0 !important;
+}
+
+.card-header {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+    color: #e2e8f0 !important;
+}
+
+.form-control,
+.form-select {
+    background-color: rgba(255, 255, 255, 0.07) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    color: #e2e8f0 !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(167, 139, 250, 0.55) !important;
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.12) !important;
+    color: #e2e8f0 !important;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.form-label {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-dark {
+    background: linear-gradient(135deg, #a78bfa, #60a5fa) !important;
+    border: none !important;
+    font-weight: 600 !important;
+    color: #fff !important;
+}
+
+.btn-dark:hover {
+    opacity: 0.88 !important;
+}
+
+* {
+    --bs-btn-focus-box-shadow: none !important;
+    --bs-focus-ring-box-shadow: none !important;
+}
+
+.btn:focus,
+.btn:focus-visible,
+.btn:active:focus,
+.btn-check:focus + .btn,
+.btn-check:active + .btn,
+.btn-check:checked + .btn,
+.btn-check + .btn:focus,
+.btn-check + .btn:focus-visible {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.list-group-item {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+    color: #e2e8f0 !important;
+}
+
+/* ── Bootstrap modal dark theme ── */
+
+.modal-content {
+    background: #1e1b3a !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #e2e8f0 !important;
+}
+
+.modal-header {
+    border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.modal-header .btn-close {
+    filter: invert(1) opacity(0.6);
+}
+
+.modal-footer {
+    border-top-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* ── Table dark theme ── */
+
+.table {
+    color: #e2e8f0 !important;
+    --bs-table-bg: transparent !important;
+    --bs-table-hover-bg: rgba(255, 255, 255, 0.05) !important;
+    --bs-table-active-bg: rgba(255, 255, 255, 0.06) !important;
+    --bs-table-striped-bg: rgba(255, 255, 255, 0.03) !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.table thead th {
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.8px !important;
+    border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.table td,
+.table th {
+    border-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+.table-active > * {
+    --bs-table-bg-state: rgba(255, 255, 255, 0.05) !important;
+    color: #e2e8f0 !important;
+}
 
 body::-webkit-scrollbar {
     width: 12px; /* width of the entire scrollbar */

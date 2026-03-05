@@ -1,0 +1,142 @@
+/* ── Navbar wrapper ── */
+.nav {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    margin-top: 12px;
+}
+
+/* ── Brand (logo + title) ── */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.logo {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    animation: rotating 3s ease-in-out infinite;
+}
+
+.brandName {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    background: linear-gradient(90deg, #a78bfa, #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ── Links ── */
+.links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.link {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 7px 14px;
+    border-radius: 10px;
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.link:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+
+.linkIcon {
+    font-size: 18px;
+}
+
+/* ── Right side: user info + logout ── */
+.right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.username {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 5px 12px;
+    letter-spacing: 0.3px;
+}
+
+.logoutBtn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(248, 113, 113, 0.12);
+    border: 1px solid rgba(248, 113, 113, 0.25);
+    color: #fca5a5;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.logoutBtn:hover {
+    background: rgba(248, 113, 113, 0.22);
+    color: #fecaca;
+}
+
+.logoutIcon {
+    font-size: 17px;
+}
+
+/* ── Mobile toggler ── */
+.toggler {
+    display: none;
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    padding: 6px 10px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+@media (max-width: 768px) {
+    .toggler {
+        display: flex;
+        align-items: center;
+    }
+
+    .links,
+    .right {
+        display: none;
+    }
+}
+
+/* ── Logo animation ── */
+@keyframes rotating {
+    0%   { transform: rotate(-30deg); }
+    50%  { transform: rotate(0deg); }
+    100% { transform: rotate(-30deg); }
+}

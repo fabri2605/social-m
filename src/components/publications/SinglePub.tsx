@@ -134,12 +134,19 @@ export const SinglePub = ({ e, upvoteRequest }: Props) => {
                     &nbsp;
                     <button
                         type='button'
-                        className='txt opacity-50'
                         data-bs-toggle='modal'
                         data-bs-target={`#${e.id}`}
                         style={{
-                            border: 'none',
-                            backgroundColor: 'rgba(255, 255, 255, 0)',
+                            border: '1px solid rgba(255,255,255,0.15)',
+                            backgroundColor: 'rgba(255,255,255,0.08)',
+                            color: '#e2e8f0',
+                            borderRadius: '8px',
+                            padding: '2px 10px',
+                            fontSize: '13px',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            marginTop: '4px',
+                            marginRight: '4px'
                         }}
                     >
                         {e.upvotes.length}

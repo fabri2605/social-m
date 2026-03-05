@@ -7,6 +7,7 @@ import { LoginForm } from './LoginForm';
 import { RegisterForm } from './RegisterForm';
 import Swal from 'sweetalert2';
 import { Footer } from '../nav&foot/Footer';
+import styles from './Styles.module.css';
 
 export function Login() {
     const [isRegistred, setIsRegistred] = useState(true);
@@ -73,33 +74,29 @@ export function Login() {
     }, [setIsLoading]);
 
     const footer = {
-        position: 'absolute',
-        bottom: 0,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        left: 0,
-        right: 0,
+        color: 'rgba(255, 255, 255, 0.35)',
+        fontSize: '12px',
+        marginTop: '16px',
     };
 
     if (isLoading) return <Spinner />;
 
     return (
-        <div className='container p-4'>
-            <div className='row'>
-                {isRegistred ? (
-                    <LoginForm
-                        registredOrNot={changingIsRegistred}
-                        userSubmition={(u, p) => userLogin(u, p)}
-                    />
-                ) : (
-                    <RegisterForm
-                        registredOrNot={changingIsRegistred}
-                        userSubmition={(e, u, p) => userRegister(e, u, p)}
-                    />
-                )}
-                {error && <p className='text-danger'>{error}</p>}
-                <Footer styles={footer} />
-            </div>
+        <div className={styles.page}>
+            {isRegistred ? (
+                <LoginForm
+                    registredOrNot={changingIsRegistred}
+                    userSubmition={(u, p) => userLogin(u, p)}
+                    serverError={error}
+                />
+            ) : (
+                <RegisterForm
+                    registredOrNot={changingIsRegistred}
+                    userSubmition={(e, u, p) => userRegister(e, u, p)}
+                    serverError={error}
+                />
+            )}
+            <Footer styles={footer} />
         </div>
     );
 }

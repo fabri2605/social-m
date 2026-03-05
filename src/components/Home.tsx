@@ -55,7 +55,7 @@ export const Home = () => {
 
             {/* WARNING - page not finished */}
 
-            <div className='alert alert-dismissible alert-warning mb-2'>
+            {/* <div className='alert alert-dismissible alert-warning mb-2'>
                 <button
                     type='button'
                     className='btn-close'
@@ -73,7 +73,7 @@ export const Home = () => {
                     </a>
                     ..
                 </p>
-            </div>
+            </div> */}
 
             <Publisher />
             <Publications filterByUser={''} />

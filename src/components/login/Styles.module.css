@@ -1,30 +1,192 @@
-.title{
+/* ── Full-page background ── */
+.page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+}
+
+/* ── Card ── */
+.card {
+    width: 100%;
+    max-width: 420px;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 40px 36px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    color: #fff;
+    position: relative;
+}
+
+/* ── Header ── */
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    filter: invert(1) brightness(2);
+    margin-bottom: 14px;
+    animation: rotating 3s ease-in-out infinite;
+}
+
+.title {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 4px;
+    background: linear-gradient(90deg, #a78bfa, #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     text-align: center;
+    margin: 0 0 4px 0;
 }
 
-.logo{
-    position: absolute;
-    top: 17px;
-    left: 30px;
-    width: 50px;
+.subtitle {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.5px;
 }
 
-.logonav{
-    width: 50px;
-    margin-right: 10px;
-    animation:  rotating 2s linear infinite;
+/* ── Input group ── */
+.inputGroup {
+    margin-bottom: 18px;
+}
+
+.inputLabel {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 7px;
+    text-transform: uppercase;
+}
+
+.inputWrapper {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+
+.inputWrapper:focus-within {
+    border-color: rgba(167, 139, 250, 0.55);
+    background: rgba(255, 255, 255, 0.11);
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.12);
+}
+
+.inputIcon {
+    padding: 0 10px 0 14px;
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 20px;
+    user-select: none;
+    line-height: 1;
+}
+
+.input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 13px 10px;
+    color: #fff;
+    font-size: 15px;
+}
+
+.input::placeholder {
+    color: rgba(255, 255, 255, 0.25);
+}
+
+.visibilityBtn {
+    padding: 0 14px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 20px;
+    user-select: none;
+    transition: color 0.2s;
+    line-height: 1;
+}
+
+.visibilityBtn:hover {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* ── Error ── */
+.error {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    color: #fca5a5;
+    background: rgba(248, 113, 113, 0.1);
+    border: 1px solid rgba(248, 113, 113, 0.25);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 18px;
+}
+
+/* ── Submit button ── */
+.submitBtn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #a78bfa, #60a5fa);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(96, 165, 250, 0.3);
+}
+
+.submitBtn:hover {
+    opacity: 0.88;
+    box-shadow: 0 6px 24px rgba(96, 165, 250, 0.45);
+}
+
+.submitBtn:active {
+    transform: scale(0.98);
+}
+
+/* ── Toggle link ── */
+.toggleText {
+    text-align: center;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.45);
+    margin-top: 22px;
+    margin-bottom: 0;
+}
+
+.toggleLink {
+    color: #a78bfa;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    margin-left: 4px;
+    transition: color 0.2s;
+}
+
+.toggleLink:hover {
+    color: #c4b5fd;
 }
 
 @keyframes rotating {
-    0%{
-        transform: rotate(-30deg);
-    }
-    50%{
-        transform: rotate(0deg);
-    }
-    100%{
-        transform: rotate(-30deg);
-    }
-
-
+    0%   { transform: rotate(-30deg); }
+    50%  { transform: rotate(0deg); }
+    100% { transform: rotate(-30deg); }
 }
